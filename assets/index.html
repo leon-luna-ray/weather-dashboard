@@ -7,7 +7,36 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-    
+
+    <div class="container">
+
+        <nav class="nav-bar">
+            <h1 class="nav-title">Weather Dashboard</h1>
+        </nav>
+
+        <div class="search-bar"> <!--first col for search and saved searches-->
+            <div class="search">
+                <h3 class="search-text">City</h3>
+                <input type="text" name="city-search" id="city-search"> <!--user input-->
+                <button class="search-button">Search</button>
+            </div>
+            <div class="previous-searches"></div> <!--previous searches added here-->
+        </div> <!--search bar div-->
+
+        <div class="weather-data">
+            <div class="city-data">
+                <div class="city-display">
+                    <div class="city-name"></div> <!--city name and temp-->
+                    <div class="city-temprature"></div>
+                </div>
+                <div class="city-stats"></div> <!--other weather stats-->
+            </div>
+
+            <div class="city-forcast"></div> <!--rendered forcast days go here-->
+        </div> <!--weather data div-->
+
+    </div> <!--container-->
+
     <script src="./js/script.js"></script>
 
 </body>
