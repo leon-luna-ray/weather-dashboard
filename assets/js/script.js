@@ -45,6 +45,18 @@ const forcastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + 
 $.ajax( {
     url: forcastQueryURL
 }).then(function(data){
-    console.log(data);
+    let forcastDates = data.list
+    for (let i = 0; i < forcastDates.length; i++) {
+
+        for (let j = 0; j < array.length; j++) {
+            const element = array[j];
+            
+        }
+        let forcastDate = data.list[i].dt_txt
+        $("#city-forcast").append(forcastDate);
+
+        console.log(forcastDate)
+        } // need to figure out how to get five days to render
+
 });
 
