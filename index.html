@@ -6,7 +6,7 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -14,36 +14,41 @@
 </head>
 <body>
 
+    <nav class="nav-bar">
+        <h1 class="nav-title">Weather Dashboard</h1>
+    </nav>
+
     <div class="container">
         
-        <nav class="nav-bar">
-            <h1 class="nav-title">Weather Dashboard</h1>
-        </nav>
-
         <div class="search-bar"> <!--first col for search and saved searches-->
             <div class="search">
                 <h3 class="search-text">City</h3>
                 <input type="text" name="city-search" id="city-search"> <!--user input-->
                 <button class="search-button">Search</button>
             </div>
-            <div class="previous-searches"></div> <!--previous searches added here-->
+            <div id="previous-searches"></div> <!--previous searches added here-->
         </div> <!--search bar div-->
 
         <div class="weather-data">
             <div class="city-data">
                 <div class="city-display">
-                    <div class="city-name"></div> <!--city name and temp-->
-                    <div class="city-temprature"></div>
+                    <div id="city-name"></div> <!--city name and temp-->
+                    <div id="city-temprature"></div>
                 </div>
-                <div class="city-stats"></div> <!--other weather stats-->
+                <div id="city-stats">
+                    <div id="wind-data">Wind: </div>
+                    <div id="humidity-data">Humidity: </div>
+                    <div id="uv-data">UV Index: <span id="uv-val"></span></div>
+                </div> <!--other weather stats-->
             </div>
 
             <div class="city-forcast"></div> <!--rendered forcast days go here-->
+            
         </div> <!--weather data div-->
 
     </div> <!--container-->
 
-    <script src="./js/script.js"></script>
+    <script src="./assets/js/script.js"></script>
 
 </body>
 </html>

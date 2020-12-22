@@ -3,5 +3,60 @@
 }
 
 .container {
-    margin: 1rem;
+    margin: 2rem;
+    display: flex;
+}
+
+.nav-bar {
+    text-align: center;
+}
+
+.nav-title {
+    font-size: 3rem;
+}
+
+.search-bar {
+    width: 20%;
+}
+
+.weather-data {
+    width: 80%;
+}
+
+.city-data {
+    border: 2px solid black;
+    padding: 1.5rem;
+}
+
+.city-forcast {
+    border:black 2px solid black;
+}
+
+#city-name{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+#city-temprature {
+    font-size: 4rem;
+}
+
+#city-stats {
+    display: flex;
+    flex-direction: row;
+}
+
+.uv-green {
+    color: white;
+    background-color: green;
+}
+
+.uv-yellow {
+    color: black;
+    background-color: yellow;
+}
+
+.uv-red {
+    color: white;
+    background-color: red;
 }
