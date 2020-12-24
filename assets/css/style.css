@@ -34,25 +34,33 @@
 
 .card-body {
     margin-left: 1rem;
+    line-height: 0.1rem;
+    display: flex;
 }
 
 .city-name {
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
+.city-temprature {
+    font-size: 3rem;
+}
 
-/* UV section
-.uv-green {
+.city-uv {
+    background-color: red;
+}
+
+#uv-green {
     color: white;
     background-color: green;
 }
 
-.uv-yellow {
+#uv-yellow {
     color: black;
     background-color: yellow;
 }
 
-.uv-red {
+#uv-red {
     color: white;
     background-color: red;
-} */
+}

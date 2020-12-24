@@ -28,26 +28,27 @@ $.ajax( {
     $(".city-data").append(cityOneDayDiv)
 
     // get uv function
-    // const cityLat = data.coord.lat;
-    // const cityLon = data.coord.lon;
-    // searchedCity(userCity);
-    // function getUV(lat, lon){
-    //     $.ajax({
-    //     url: uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey
-    // }).then(function(data) {
-    //     const cityUV = data.value;
-    //     $("#uv-val").append(cityUV);
-    //     console.log(data)
-    //     // Change UV index color 
-    //     if (cityUV < 4){
-    //         $("#uv-val").attr("class" , "uv-green");
-    //     } else if (cityUV >= 4 && cityUV <= 8){
-    //         $("#uv-val").attr("class", "uv-yellow");
-    //     } else if (cityUV > 8){
-    //         $("#uv-val").attr("class", "uv-red");
-    //     }
-    // });
-    // };
+    const cityLat = data.coord.lat;
+    const cityLon = data.coord.lon;
+    getUV(data.coord.lat, data.coord.lon);
+    function getUV(lat, lon){
+        $.ajax({
+        url: uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey
+    }).then(function(data) {
+        const uvData = data.value;
+        const cityUV = $("<p>").addClass("city-uv").text(uvData);
+        $(cardBody).append(cityUV);
+        // Change UV index color 
+        // if (uvData < 4){
+        //     console.log("less than 4")
+        //     $(".city-uv").attr("id" , "uv-green");
+        // } else if (uvData >= 4 && uvData <= 8){
+        //     $(".city-uv").attr("id", "uv-yellow");
+        // } else if (uvData > 8){
+        //     $(".city-uv").attr("id", "uv-red");
+        // }
+    });
+    };
 
 
 
@@ -69,15 +70,15 @@ $.ajax( {
 //         url: uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + cityLat + "&lon=" + cityLon + "&appid=" + apiKey
 //     }).then(function(data) {
 //         const cityUV = data.value;
-//         $("#uv-val").append(cityUV);
+//         $(".city-uv").append(cityUV);
 
 //         // Change UV index color 
 //         if (cityUV < 4){
-//             $("#uv-val").attr("class" , "uv-green");
+//             $(".city-uv").attr("class" , "uv-green");
 //         } else if (cityUV >= 4 && cityUV <= 8){
-//             $("#uv-val").attr("class", "uv-yellow");
+//             $(".city-uv").attr("class", "uv-yellow");
 //         } else if (cityUV > 8){
-//             $("#uv-val").attr("class", "uv-red");
+//             $(".city-uv").attr("class", "uv-red");
 //         }
 //     });
 // });
