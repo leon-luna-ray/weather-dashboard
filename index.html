@@ -3,11 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <title>Weather Dashboard</title>
@@ -30,20 +28,8 @@
         </div> <!--search bar div-->
 
         <div class="weather-data">
-            <div class="city-data">
-                <div class="city-display">
-                    <div id="city-name"></div> <!--city name and temp-->
-                    <div id="city-temprature"></div>
-                </div>
-                <div id="city-stats">
-                    <div id="wind-data">Wind: </div>
-                    <div id="humidity-data">Humidity: </div>
-                    <div id="uv-data">UV Index: <span id="uv-val"></span></div>
-                </div> <!--other weather stats-->
-            </div>
-
-            <div id="city-forcast"></div> <!--rendered forcast days go here-->
-            
+            <div class="city-data"></div> <!--current conditions-->
+            <div class="city-forcast"></div> <!--rendered forcast days go here-->
         </div> <!--weather data div-->
 
     </div> <!--container-->
