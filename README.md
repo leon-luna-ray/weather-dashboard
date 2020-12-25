@@ -18,6 +18,8 @@
 
 * Still working on completing local storage and styling.
 
-URL: https://leon-luna-ray.github.io/hw06-weather-dashboard/
 
+Application Screenshot
 ![Screenshot](https://github.com/leon-luna-ray/hw06-weather-dashboard/blob/main/assets/images/screencapture-127-0-0-1-5500-homework-hw06-weather-dashboard-2020-12-24-21_12_11.png)
+
+URL: https://leon-luna-ray.github.io/hw06-weather-dashboard/
