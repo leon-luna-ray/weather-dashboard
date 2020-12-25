@@ -2,9 +2,9 @@ $(document).ready(function(){
     $("#search-button").on("click", function citySearch(){
         const userCity = "portland" //$("#city-search").val(); temp change for testing purposes
         const apiKey = "40d735c04b7e328dff495db17c0a745b";
-        const dataUnits = "imperial"; // possibly add functionality to change to metric
+        const dataUnits = "imperial"; // Possibility to add metric functionality later.
         cityWeather(userCity, apiKey, dataUnits);
-        cityForcast(userCity, apiKey, dataUnits);
+        cityForecast(userCity, apiKey, dataUnits);
 });
 
 function cityWeather(city, key, units) {
@@ -14,17 +14,18 @@ $.ajax( {
     url: cityQueryURL
 }).then(function getWeather(data) {
     //City weather data card.
+    const currentWeatherCard = $("<div>").addClass("current-card");
+    const currentCardBody = $("<div>").addClass("current-card-body");
     const cityName = $("<h1>").addClass("city-name").text(data.name);
-    const cityOneDayDiv = $("<div>").addClass("one-day-card");
-    const cityWindSpeed = $("<p>").addClass("wind-data").text(data.wind.speed.toFixed() + " mph");
-    const cityHumidity = $("<p>").addClass("humidity-data").text(data.main.humidity + "%");
-    const cityTemp = $("<p>").addClass("city-temprature").text(data.main.temp.toFixed()  + "°F");
-    const cardBody = $("<div>").addClass("card-body");
-    const weatherImage = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
-    cityName.append(weatherImage);
-    cardBody.append(cityName, cityTemp, cityHumidity, cityWindSpeed);
-    cityOneDayDiv.append(cardBody);
-    $(".city-data").append(cityOneDayDiv);
+    const currentTemp = $("<p>").addClass("current-temprature").text(data.main.temp.toFixed()  + "°F");
+    const currentWindSpeed = $("<p>").addClass("current-wind").text(data.wind.speed.toFixed() + " mph");
+    const currentHumdity = $("<p>").addClass("current-humidity").text(data.main.humidity + "%");
+    const currentIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
+
+    cityName.append(currentIcon);
+    currentCardBody.append(cityName, currentTemp, currentHumdity, currentWindSpeed);
+    currentWeatherCard.append(currentCardBody);
+    $(".current-weather").append(currentWeatherCard);
 
     // UV API call
     function getUV(lat, lon){
@@ -34,7 +35,7 @@ $.ajax( {
         // Append UV data to card body
         const uvData = data.value;
         const cityUV = $("<p>").addClass("city-uv").text(uvData);
-        $(cardBody).append(cityUV);
+        $(currentCardBody).append(cityUV);
 
         // Change UV index color 
         if (uvData < 4) {
@@ -51,35 +52,47 @@ $.ajax( {
     });
 }; // cityWeather
 
-    // Get forcast function loop.
-    function cityForcast(city, key, units) {
- 
-        const forcastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=" + units + "&appid=" + key;
+    // Get forecast function loop.
+    function cityForecast(city, key, units) {
+        const forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=" + units + "&appid=" + key;
 
-    // API call for forcast.
+    // API call for forecast.
     $.ajax( {
-        url: forcastQueryURL
-    }).then(function getForcast(data) {
-        //const day1 = data.list[3].dt_txt;
-        
+        url: forecastQueryURL
+    }).then(function getForecast(data) {
         const daysArray = [data.list[3], data.list[11], data.list[19], data.list[27], data.list[35]];
 
+        // For loop to pull noon forecast data from ajax and append forecast cards to page.
         for (let i = 0; i < daysArray.length; i++){
-            const forcastDate = daysArray[i].dt_txt
-            console.log(forcastDate)
+            // Set up variables to crate forecast elements.
+            const forecastCard = $("<div>").addClass("forecast-card");
+            const forecastCardBody = $("<div>").addClass("forecast-card-body");
+            const forecastDate = $("<h1>").addClass("forecast-date").text(daysArray[i].dt_txt);
+            const forecastTemp = $("<p>").addClass("forecast-temprature").text(daysArray[i].main.temp.toFixed()  + "°F");
+            const forecastHumidity = $("<p>").addClass("forecast-humidity").text(daysArray[i].main.humidity + "%"); 
+            const forecastIcon =  $("<img>").attr("src", "http://openweathermap.org/img/w/" + daysArray[i].weather[0].icon + ".png").addClass("forecast-icon");
+
+            forecastDate.append(forecastIcon);
+            // forecastCardBody.append(forecastDate, forecastTemp, forecastHumidity);
+            // forecastCard.append(forecastCardBody);
+            // $(".forecast").append(forecastCard);
+
+            console.log(forecastHumidity);
             
             // create card and append to page for each of the indecies in the days array, hopefully it won't change and it keeps this same pattern.
-           
+            // card body (copy above)
+            // append to each card
+            //$("<img>").attr("src", 
         }
         
-    // idea, crate a for loop first, then add everything below similar to the previous funciton getCurrentConditions
 
-    // Set up variables to crate html tag, calss and value with data from ajax
+
+
     // card body (copy above)
     // append to each card
 
-    }); // getForcast
-    }; // cityForcast
+    }); // getforecast
+    }; // cityforecast
 
 
 
@@ -97,23 +110,23 @@ $.ajax( {
 
 
 
-// // Forcast API
+// // forecast API
 // 
 
 // $.ajax( {
-//     url: forcastQueryURL
+//     url: forecastQueryURL
 // }).then(function(data){
-//     let forcastDates = data.list
-//     for (let i = 8; i < forcastDates.length; i+8) {
+//     let forecastDates = data.list
+//     for (let i = 8; i < forecastDates.length; i+8) {
 
 //         for (let j = 0; j < array.length; j++) {
 //             const element = array[j];
             
 //         }
-//         let forcastDate = data.list[i].dt_txt
-//         $("#city-forcast").append(forcastDate);
+//         let forecastDate = data.list[i].dt_txt
+//         $("#city-forecast").append(forecastDate);
 
-//         console.log(forcastDate)
+//         console.log(forecastDate)
         // } // need to figure out how to get five days to render
 
 // });

@@ -1,4 +1,4 @@
-* {
+/* * {
     font-family: 'Comfortaa', cursive;
 }
 
@@ -28,7 +28,7 @@
 
 }
 
-.city-forcast {
+.city-forecast {
     border:black 2px solid black;
 }
 
@@ -42,9 +42,10 @@
     font-size: 2rem;
 }
 
-.city-temprature {
+.current-temprature {
     font-size: 3rem;
 }
+ */
 
 #uv-green {
     color: white;
