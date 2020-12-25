@@ -55,7 +55,6 @@ $.ajax( {
     function cityForcast(city, key, units) {
  
         const forcastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=" + units + "&appid=" + key;
-        console.log(forcastQueryURL)
 
     // API call for forcast.
     $.ajax( {
@@ -66,8 +65,9 @@ $.ajax( {
         const daysArray = [data.list[3], data.list[11], data.list[19], data.list[27], data.list[35]];
 
         for (let i = 0; i < daysArray.length; i++){
-
-            console.log(daysArray[i])
+            const forcastDate = daysArray[i].dt_txt
+            console.log(forcastDate)
+            
             // create card and append to page for each of the indecies in the days array, hopefully it won't change and it keeps this same pattern.
            
         }
