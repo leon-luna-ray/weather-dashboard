@@ -4,10 +4,13 @@ $(document).ready(function(){
         const userCity = $("#city-search").val();
         const apiKey = "40d735c04b7e328dff495db17c0a745b";
         const dataUnits = "imperial"; // Possibility to add metric functionality later.
+
+        // Invoke current weather and forecast functions.
         cityWeather(userCity, apiKey, dataUnits);
         cityForecast(userCity, apiKey, dataUnits);
     }); // citySearch
 
+    // Current weather condtions.
     function cityWeather(city, key, units) {
     const cityQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + units + "&appid=" + key;
         $.ajax({
