@@ -1,19 +1,18 @@
 $(document).ready(function(){
     $("#search-button").on("click", function(){
         const userCity = "portland" //$("#city-search").val(); temp change for testing purposes
-        searchedCity(userCity);
+        const apiKey = "40d735c04b7e328dff495db17c0a745b";
+        const dataUnits = "imperial"; // possibly add functionality to change to metric
+        getCurrentConditions(userCity, apiKey, dataUnits);
+        getForcast(userCity, apiKey, dataUnits);
 });
 
-
-let dataUnits = "imperial"; // possibly add functionality to change to metric
-function searchedCity(userCity) {
-const apiKey = "40d735c04b7e328dff495db17c0a745b";
-const cityQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + userCity + "&units=" + dataUnits + "&appid=" + apiKey;
-
+function getCurrentConditions(city, key, units) {
+const cityQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + units + "&appid=" + key;
 // Render weather data for the searched city.
 $.ajax( {
     url: cityQueryURL
-}).then(function getWeather(data) { // Will there be an issue with naming this function?
+}).then(function getWeather(data) {
     //City weather data card.
     const cityName = $("<h1>").addClass("city-name").text(data.name);
     const cityOneDayDiv = $("<div>").addClass("one-day-card");
@@ -30,7 +29,7 @@ $.ajax( {
     // UV API call
     function getUV(lat, lon){
         $.ajax({
-        url: uvQueryURL = "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey
+        url: "http://api.openweathermap.org/data/2.5/uvi?lat=" + lat + "&lon=" + lon + "&appid=" + key
     }).then(function(data) {
         // Append UV data to card body
         const uvData = data.value;
@@ -44,27 +43,32 @@ $.ajax( {
             $(".city-uv").attr("id", "uv-yellow");
         } else if (uvData > 8) {
             $(".city-uv").attr("id", "uv-red");
-        }
-    });
-    }; // getUV function
+        };
+        });
+        }; // getUV
+        
+    // Invoke the UV function with coordinate data for location.
+    getUV(data.coord.lat, data.coord.lon); 
+    }); //ajax
+}; // getCurrentConditions
 
-    getUV(data.coord.lat, data.coord.lon); // Invoke the UV function with coordinate data for location.
-
-    // TODO:
     // get forcast function loop.
-    // history or local storage at the very least.
-    // stying issues if time available.
+    function getForcast(city, key, units) {
+ 
+        const forcastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=" + units + "&appid=" + key;
+        console.log(forcastQueryURL)
+    };
 
 
 
 
 
-    
-}); //ajax
-};  //searched city
+
 }); // wrapper
 
-
+    // TODO:
+    // history or local storage at the very least.
+    // stying issues if time available.    
 
 
 
@@ -72,7 +76,7 @@ $.ajax( {
 
 
 // // Forcast API
-// const forcastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + searchedCity + "&units=" + dataUnits + "&appid=" + apiKey;
+// 
 
 // $.ajax( {
 //     url: forcastQueryURL
