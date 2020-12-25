@@ -69,13 +69,13 @@ $.ajax( {
             const forecastCardBody = $("<div>").addClass("forecast-card-body");
             const forecastDate = $("<h1>").addClass("forecast-date").text(daysArray[i].dt_txt);
             const forecastTemp = $("<p>").addClass("forecast-temprature").text(daysArray[i].main.temp.toFixed()  + "°F");
-            const forecastHumidity = $("<p>").addClass("forecast-humidity").text(daysArray[i].main.humidity + "%"); 
+            const forecastHumidity = $("<p>").addClass("forecast-humidity").text("Humidity: " + daysArray[i].main.humidity + "%"); 
             const forecastIcon =  $("<img>").attr("src", "http://openweathermap.org/img/w/" + daysArray[i].weather[0].icon + ".png").addClass("forecast-icon");
 
             forecastDate.append(forecastIcon);
-            // forecastCardBody.append(forecastDate, forecastTemp, forecastHumidity);
-            // forecastCard.append(forecastCardBody);
-            // $(".forecast").append(forecastCard);
+            forecastCardBody.append(forecastDate, forecastTemp, forecastHumidity);
+            forecastCard.append(forecastCardBody);
+            $(".forecast").append(forecastCard);
 
             console.log(forecastHumidity);
             
