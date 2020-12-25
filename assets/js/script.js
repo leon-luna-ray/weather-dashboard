@@ -1,13 +1,13 @@
 $(document).ready(function(){
-    $("#search-button").on("click", function(){
+    $("#search-button").on("click", function citySearch(){
         const userCity = "portland" //$("#city-search").val(); temp change for testing purposes
         const apiKey = "40d735c04b7e328dff495db17c0a745b";
         const dataUnits = "imperial"; // possibly add functionality to change to metric
-        getCurrentConditions(userCity, apiKey, dataUnits);
-        getForcast(userCity, apiKey, dataUnits);
+        cityWeather(userCity, apiKey, dataUnits);
+        cityForcast(userCity, apiKey, dataUnits);
 });
 
-function getCurrentConditions(city, key, units) {
+function cityWeather(city, key, units) {
 const cityQueryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=" + units + "&appid=" + key;
 // Render weather data for the searched city.
 $.ajax( {
@@ -46,18 +46,40 @@ $.ajax( {
         };
         });
         }; // getUV
-        
     // Invoke the UV function with coordinate data for location.
     getUV(data.coord.lat, data.coord.lon); 
-    }); //ajax
-}; // getCurrentConditions
+    });
+}; // cityWeather
 
-    // get forcast function loop.
-    function getForcast(city, key, units) {
+    // Get forcast function loop.
+    function cityForcast(city, key, units) {
  
         const forcastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=" + units + "&appid=" + key;
         console.log(forcastQueryURL)
-    };
+
+    // API call for forcast.
+    $.ajax( {
+        url: forcastQueryURL
+    }).then(function getForcast(data) {
+        //const day1 = data.list[3].dt_txt;
+        
+        const daysArray = [data.list[3], data.list[11], data.list[19], data.list[27], data.list[35]];
+
+        for (let i = 0; i < daysArray.length; i++){
+
+            console.log(daysArray[i])
+            // create card and append to page for each of the indecies in the days array, hopefully it won't change and it keeps this same pattern.
+           
+        }
+        
+    // idea, crate a for loop first, then add everything below similar to the previous funciton getCurrentConditions
+
+    // Set up variables to crate html tag, calss and value with data from ajax
+    // card body (copy above)
+    // append to each card
+
+    }); // getForcast
+    }; // cityForcast
 
 
 
