@@ -55,7 +55,7 @@ $(document).ready(function(){
         }); //getWeather
     }; // cityWeather
 
-    // Five day forecast.
+// Five day forecast.
 function cityForecast(city, key, units) {
     const forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=" + units + "&appid=" + key;
 
