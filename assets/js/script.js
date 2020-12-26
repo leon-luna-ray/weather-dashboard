@@ -6,9 +6,17 @@ $(document).ready(function(){
         const dataUnits = "imperial"; // Possibility to add metric functionality later.
 
         // Invoke current weather and forecast functions.
+        saveCity(userCity);
         cityWeather(userCity, apiKey, dataUnits);
         cityForecast(userCity, apiKey, dataUnits);
     }); // citySearch
+
+    function saveCity (city) {
+        
+        let savedCities = localStorage.getItem(weather)
+        savedCities.push(city);
+        console.log(savedCities)
+    };
 
     // Current weather condtions.
     function cityWeather(city, key, units) {
@@ -61,7 +69,6 @@ $(document).ready(function(){
 // Five day forecast.
 function cityForecast(city, key, units) {
     const forecastQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=" + units + "&appid=" + key;
-
     // API call for forecast.
     $.ajax( {
         url: forecastQueryURL
