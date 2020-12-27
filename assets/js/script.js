@@ -58,6 +58,10 @@ $(document).ready(function(){
 
     function searchHistory(cities){
         console.log(cities)
+        for (let i = 0; i < cities.length; i++) {
+            const cityListItem = cities[i];
+            console.log(cityListItem)
+        }
     };
 
     // Current weather condtions.
