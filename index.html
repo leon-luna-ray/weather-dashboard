@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&display=swap" rel="stylesheet"> <!--Google Fonts-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="./assets/css/style.css"> <!--Bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script> <!--Bootstrap js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!--JQuery-->
 
     <title>Weather Dashboard</title>
@@ -15,22 +16,35 @@
 
     <nav class="nav-bar">
         <h1 class="nav-title">Weather Dashboard</h1>
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-          </div>
+</div>
     </nav>
 
     <div class="container">
+        <div id="search-bar" class="input-group">
+            <button id="search-history" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">City</button>
+
+
+            <!--DIV WHERE LI ITEMS WILL BE RENDERED COPY THIS TO JS-->
+            <ul id="city-list" class="dropdown-menu">
         
-        <div class="search-bar"> <!--first col for search and saved searches-->
-            <div class="search">
-                <h3 class="search-text">City</h3>
-                <input type="text" name="city-search" id="city-search"> <!--user input-->
-                <button id="search-button">Search</button>
-            </div>
-            <div id="previous-searches"></div> <!--previous searches added here-->
-        </div> <!--search bar div-->
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <!--current city above divider-->
+              <li><hr class="dropdown-divider"></li>
+                <!-- previous cities below divider-->
+              <li><a class="dropdown-item" href="#">Separated link</a></li>
+
+            </ul>
+
+            <!--user iputs text here-->
+            <input type="text" id="city-search" class="form-control" aria-label="Text input with 2 dropdown buttons">
+
+
+            <!--NEW SEARCH BUTTON-->
+            <button id ="search-button" class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+
+
+          </div>
+
 
         <div class="weather-data">
             <div class="current-weather"></div> <!--current conditions-->
