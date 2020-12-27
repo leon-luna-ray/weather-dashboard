@@ -45,9 +45,9 @@ $(document).ready(function(){
     }; // saveCity()
 
     // Render/pull city function with dropdown menu.
-    function previousSearches(searches){
+    //function previousSearches(searches){
 
-    }; //previousSearches()
+    //}; //previousSearches()
 
 
 
