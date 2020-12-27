@@ -11,18 +11,20 @@ $(document).ready(function(){
         cityForecast(userCity, apiKey, dataUnits);
     }); // citySearch
 
+    // Store searches to local storage.
     function saveCity(city) {
         let citiesArr = [];
         citiesArr.push(city)
 
+        // If local storage is empty create new key, else add the current search.
+
         if(window.localStorage.getItem("stored-cites") === null) {
             localStorage.setItem("stored-cites", citiesArr);
-            console.log("storage is empty") // need to split the string
         } else {
-            let savedCitiesArr = localStorage.getItem("stored-cites");
-            citiesArr.push(savedCitiesArr)
+            let savedCities = localStorage.getItem("stored-cites").split(",");
+            citiesArr.push(savedCities)
+            // Searches are stored in reverse chronological order.
             localStorage.setItem("stored-cites", citiesArr);
-            console.log("storage is not empty", citiesArr);
         }
     }; // saveCity
 
