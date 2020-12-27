@@ -4,20 +4,31 @@ $(document).ready(function(){
     const dataUnits = 'imperial'; // Possibility to add metric functionality.
 
     // Load last searched city.
-    if (window.localStorage.getItem('previous-city') === null) {
+    if (window.localStorage.getItem('saved-cites') === null) {
         // Load weather for Portland on first vist. Possibility to load based on user location.
         cityWeather('Portland', apiKey, dataUnits);
         cityForecast('Portland', apiKey, dataUnits);
     } else {
-        // Load weather for previously searched city.
+        // Load weather for previously searched city. Find way to not have to use to local storage keys.
         cityWeather(localStorage.getItem('previous-city'), apiKey, dataUnits);
         cityForecast(localStorage.getItem('previous-city'), apiKey, dataUnits);
+        // invoke the dropdown function here
     };
+
+    // Load search history to dropdown menu.
+    function dropdownHistory(cities){
+        // get item local storage. localStorage.getItem('saved-cites').split(',')
+        // get that string into an array.
+        // Clear the list before appending.
+        // for loop to create a list item for each index.
+
+    }; // dropdownHistory()
 
     // Event listener for searched city.
     $('#search-button').click(citySearch);
 
     // $('#search-bar') // Need to figure out how to do a keyup event on 'enter' and clear the search bar in the function.
+
     function citySearch(){
         const userCity = $('#city-search').val();
 
@@ -34,7 +45,7 @@ $(document).ready(function(){
         cityForecast(userCity, apiKey, dataUnits);
     }; // citySearch(); 
 
-    // Save serach history to local storage.
+    // Save serach history to local storage and dropdown menu.
     function saveCity(city) {
         let citiesArr = [];
         citiesArr.push(city)
@@ -43,26 +54,12 @@ $(document).ready(function(){
         if(window.localStorage.getItem('saved-cites') === null) {
             localStorage.setItem('saved-cites', citiesArr);
         } else { // If there are searches saved merge to the new array.
-            const savedCities = $.merge(citiesArr, localStorage.getItem('saved-cites').split(','));
-            // Save updated array in local storage.
-            localStorage.setItem('saved-cites', savedCities);
-
-            // Invoke function to render search history dropdown.
-            searchHistory(savedCities);
+            citiesArr = $.merge(citiesArr, localStorage.getItem('saved-cites').split(','));
+            // Save reverse chronological array in local storage.
+            localStorage.setItem('saved-cites', citiesArr);
         }
+        // Invoke dropdown function again here on serach, you shouldn't need to pass an argument from here since the new city should already be saved to local storage before it is invoked. That function will pull from local storage and conver to array.
     }; // saveCity()
-
-
-    // Create function to render previous searches into the dropdown menut here using an on click event using (this):
-
-    function searchHistory(cities){
-        console.log(cities)
-        for (let i = 0; i < cities.length; i++) {
-            $('#city-list').append('<li><a class="hello">' + cities[i] + '</a></li>')
-
-            console.log(cityListItem)
-        }
-    }; // searchHistory()
 
     // Current weather condtions.
     function cityWeather(city, key, units) {
