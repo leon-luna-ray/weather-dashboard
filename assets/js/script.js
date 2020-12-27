@@ -16,7 +16,8 @@ $(document).ready(function(){
 
     // Event listener for searched city.
     $("#search-button").click(citySearch);
-    // $("#search-bar") (Need to figure out how to do a keyup event on "enter" and clear the search bar in the function)
+
+    // $("#search-bar") // Need to figure out how to do a keyup event on "enter" and clear the search bar in the function.
     function citySearch(){
         const userCity = $("#city-search").val();
 
@@ -38,19 +39,26 @@ $(document).ready(function(){
         let citiesArr = [];
         citiesArr.push(city)
 
-        // If local storage is empty create new key for storing searches.
-        if(window.localStorage.getItem("stored-cites") === null) {
-            localStorage.setItem("stored-cites", citiesArr);
-        } else { // If there are searches saved append them to the new array.
-            let savedCities = localStorage.getItem("stored-cites").split(",");
-            citiesArr.push(savedCities)
-            // Save search history in reverse chronological order to local storage.
-            localStorage.setItem("stored-cites", citiesArr);
+        // If local storage is empty create new key for saving searches.
+        if(window.localStorage.getItem("saved-cites") === null) {
+            localStorage.setItem("saved-cites", citiesArr);
+        } else { // If there are searches saved merge to the new array.
+            const savedCities = $.merge(citiesArr, localStorage.getItem("saved-cites").split(","));
+            // Save updated array in local storage.
+            localStorage.setItem("saved-cites", savedCities);
+
+            // Invoke function to render search history dropdown.
+            searchHistory(savedCities);
+            console.log(savedCities);
         }
-        // previousSearches(citiesArr); invoke the dropdown function here
     }; // saveCity()
 
+
     // Create function to render previous searches into the dropdown menut here using an on click event using (this):
+
+    function searchHistory(cities){
+        console.log(cities)
+    };
 
     // Current weather condtions.
     function cityWeather(city, key, units) {
