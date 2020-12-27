@@ -2,19 +2,22 @@ $(document).ready(function(){
     const apiKey = "40d735c04b7e328dff495db17c0a745b";
     const dataUnits = "imperial"; // Possibility to add metric functionality later.
 
-    // If there are no previous searches, load weather for Portland otherwise load the last searched city. Possibility to later add functionality to load City based on the user's location.
-    if (window.localStorage.getItem("stored-cites") === null) {
+    // Load last searched city, if none load Portland.
+    // Possibility to load city based on user location later.
+    if (window.localStorage.getItem("previous-city") === null) {
         cityWeather("Portland", apiKey, dataUnits);
         cityForecast("Portland", apiKey, dataUnits);
     } else {
-
-        cityWeather(userCity, apiKey, dataUnits);
-        cityForecast(userCity, apiKey, dataUnits);
+        cityWeather(localStorage.getItem("previous-city"), apiKey, dataUnits);
+        cityForecast(localStorage.getItem("previous-city"), apiKey, dataUnits);
     };
 
     // Event listener for searched city.
     $("#search-button").on("click", function citySearch(){
         const userCity = $("#city-search").val();
+
+        // Local storage key for last searched city.
+        localStorage.setItem("previous-city", userCity);
 
         // Invoke current weather and forecast functions.
         saveCity(userCity);
