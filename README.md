@@ -4,7 +4,7 @@
 
 * Weather data provided by Open Weahter API. 
 
-* Imported Google Fonts and jQuery CDNs.
+* Imported Google Fonts, Bootstrap and jQuery CDNs.
 
 * User can retrieve current weather data and five day forecast for any city.
 
