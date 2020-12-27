@@ -21,6 +21,10 @@ $(document).ready(function(){
         // Local storage key for last searched city.
         localStorage.setItem("previous-city", userCity);
 
+        // Clear previous city data.
+        $(".current-weather").empty();
+        $(".forecast").empty();
+
         // Invoke save, current weather and forecast functions.
         saveCity(userCity);
         cityWeather(userCity, apiKey, dataUnits);
@@ -41,16 +45,10 @@ $(document).ready(function(){
             // Save search history in reverse chronological order to local storage.
             localStorage.setItem("stored-cites", citiesArr);
         }
-        // previousSearches(citiesArr);
+        // previousSearches(citiesArr); invoke the dropdown function here
     }; // saveCity()
 
-    // Render/pull city function with dropdown menu.
-    //function previousSearches(searches){
-
-    //}; //previousSearches()
-
-
-
+    // Create function to render previous searches into the dropdown menut here using an on click event using (this):
 
     // Current weather condtions.
     function cityWeather(city, key, units) {
@@ -63,13 +61,13 @@ $(document).ready(function(){
             const currentCardBody = $("<div>").addClass("current-card-body");
             const cityName = $("<h1>").addClass("city-name").text(data.name);
             const currentTemp = $("<p>").addClass("current-temprature").text(data.main.temp.toFixed()  + "°F");
-            const currentWindSpeed = $("<p>").addClass("current-wind").text(data.wind.speed.toFixed() + " mph");
-            const currentHumdity = $("<p>").addClass("current-humidity").text(data.main.humidity + "%");
+            const currentWindSpeed = $("<p>").addClass("current-wind").text("Wind: " + data.wind.speed.toFixed() + " mph");
+            const currentHumdity = $("<p>").addClass("current-humidity").text("Humidity: " + data.main.humidity + "%");
             const currentIcon = $("<img>").attr("src", "http://openweathermap.org/img/w/" + data.weather[0].icon + ".png");
 
             // Append current weather data.
             cityName.append(currentIcon);
-            currentCardBody.append(cityName, currentTemp, currentHumdity, currentWindSpeed);
+            currentCardBody.append(cityName, currentTemp, currentWindSpeed, currentHumdity);
             currentWeatherCard.append(currentCardBody);
             $(".current-weather").append(currentWeatherCard);
 
@@ -80,7 +78,7 @@ $(document).ready(function(){
             }).then(function getUV(data) {
                 // Append UV data to card body.
                 const uvData = data.value;
-                const cityUV = $("<p>").addClass("city-uv").text(uvData);
+                const cityUV = $("<p>").addClass("city-uv").text("UV: " + uvData);
                 $(currentCardBody).append(cityUV);
 
                 // Change UV index color.

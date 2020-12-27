@@ -1,3 +1,18 @@
+.nav-bar {
+    margin-bottom: 1rem;
+    
+}
+
+#search-bar {
+    margin-bottom: 1rem;
+}
+
+.nav-title {
+    text-align: center;
+    padding: 1rem;
+    font-size: 3rem;
+}
+
 /* Change UV color */
 #uv-green {
     color: white;
