@@ -5,10 +5,11 @@ $(document).ready(function(){
 
     // Load last searched city.
     if (window.localStorage.getItem("previous-city") === null) {
-        // If none load Portland. Possibility to load city based on user location.
+        // Load weather for Portland on first vist. Possibility to load based on user location.
         cityWeather("Portland", apiKey, dataUnits);
         cityForecast("Portland", apiKey, dataUnits);
     } else {
+        // Load weather for previously searched city.
         cityWeather(localStorage.getItem("previous-city"), apiKey, dataUnits);
         cityForecast(localStorage.getItem("previous-city"), apiKey, dataUnits);
     };
@@ -24,25 +25,32 @@ $(document).ready(function(){
         saveCity(userCity);
         cityWeather(userCity, apiKey, dataUnits);
         cityForecast(userCity, apiKey, dataUnits);
-    }); // citySearch
+    }); // citySearch()
 
-    // Save searches to local storage.
+    // Save serach history to local storage.
     function saveCity(city) {
         let citiesArr = [];
         citiesArr.push(city)
 
-        // If local storage is empty create new key, else add the current search.
+        // If local storage is empty create new key for storing searches.
         if(window.localStorage.getItem("stored-cites") === null) {
             localStorage.setItem("stored-cites", citiesArr);
-        } else {
+        } else { // If there are searches saved append them to the new array.
             let savedCities = localStorage.getItem("stored-cites").split(",");
             citiesArr.push(savedCities)
-            // Searches are stored in reverse chronological order.
+            // Save search history in reverse chronological order to local storage.
             localStorage.setItem("stored-cites", citiesArr);
         }
-    }; // saveCity
+        // previousSearches(citiesArr);
+    }; // saveCity()
 
     // Render/pull city function with dropdown menu.
+    function previousSearches(searches){
+
+    }; //previousSearches()
+
+
+
 
     // Current weather condtions.
     function cityWeather(city, key, units) {
@@ -83,14 +91,14 @@ $(document).ready(function(){
                 } else if (uvData > 8) {
                     $(".city-uv").attr("id", "uv-red");
                 }; 
-                }); // ajax
-            };  // cityUV
+                }); // ajax()
+            };  // cityUV()
 
             // Run cityUv with coordinate data.
             cityUV(data.coord.lat, data.coord.lon); 
 
-        }); //getWeather
-    }; // cityWeather
+        }); //getWeather()
+    }; // cityWeather()
 
 // Five day forecast.
 function cityForecast(city, key, units) {
@@ -100,7 +108,7 @@ function cityForecast(city, key, units) {
         url: forecastQueryURL
     }).then(function getForecast(data) {
         // Created array with diffent days from the data.
-        const daysArray = [data.list[3], data.list[11], data.list[19], data.list[27], data.list[35]];
+        const daysArray = [data.list[0], data.list[8], data.list[16], data.list[24], data.list[32]];
 
         // For loop to pull noon forecast data from ajax and append forecast cards to page.
         for (let i = 0; i < daysArray.length; i++){
@@ -117,7 +125,7 @@ function cityForecast(city, key, units) {
             forecastCardBody.append(forecastDate, forecastTemp, forecastHumidity);
             forecastCard.append(forecastCardBody);
             $(".forecast").append(forecastCard);
-        };  // for loop
-    }); // getforecast
-    };  // cityforecast
-}); // document.ready
+        };  // loop
+    }); // getforecast()
+    };  // cityforecast()
+}); // document.ready()
