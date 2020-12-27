@@ -16,7 +16,7 @@ $(document).ready(function(){
 
     // Event listener for searched city.
     $("#search-button").click(citySearch);
-    // $("#search-bar") (Need to figure out how to do a keyup event on "enter")
+    // $("#search-bar") (Need to figure out how to do a keyup event on "enter" and clear the search bar in the function)
     function citySearch(){
         const userCity = $("#city-search").val();
 
