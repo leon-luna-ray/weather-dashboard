@@ -11,12 +11,22 @@ $(document).ready(function(){
         cityForecast(userCity, apiKey, dataUnits);
     }); // citySearch
 
-    function saveCity (city) {
-        
-        let savedCities = localStorage.getItem(weather)
-        savedCities.push(city);
-        console.log(savedCities)
-    };
+    function saveCity(city) {
+        let citiesArr = [];
+        citiesArr.push(city)
+
+        if(window.localStorage.getItem("stored-cites") === null) {
+            localStorage.setItem("stored-cites", citiesArr);
+            console.log("storage is empty") // need to split the string
+        } else {
+            let savedCitiesArr = localStorage.getItem("stored-cites");
+            citiesArr.push(savedCitiesArr)
+            localStorage.setItem("stored-cites", citiesArr);
+            console.log("storage is not empty", citiesArr);
+        }
+    }; // saveCity
+
+    // Render/pull city function
 
     // Current weather condtions.
     function cityWeather(city, key, units) {
