@@ -15,7 +15,9 @@ $(document).ready(function(){
     };
 
     // Event listener for searched city.
-    $("#search-button").on("click", function citySearch(){
+    $("#search-button").click(citySearch);
+    // $("#search-bar") (Need to figure out how to do a keyup event on "enter")
+    function citySearch(){
         const userCity = $("#city-search").val();
 
         // Local storage key for last searched city.
@@ -29,7 +31,7 @@ $(document).ready(function(){
         saveCity(userCity);
         cityWeather(userCity, apiKey, dataUnits);
         cityForecast(userCity, apiKey, dataUnits);
-    }); // citySearch()
+    }; // citySearch(); 
 
     // Save serach history to local storage.
     function saveCity(city) {
