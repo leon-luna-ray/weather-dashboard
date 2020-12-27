@@ -1,10 +1,11 @@
 $(document).ready(function(){
+    // API key and units.
     const apiKey = "40d735c04b7e328dff495db17c0a745b";
-    const dataUnits = "imperial"; // Possibility to add metric functionality later.
+    const dataUnits = "imperial"; // Possibility to add metric functionality.
 
-    // Load last searched city, if none load Portland.
-    // Possibility to load city based on user location later.
+    // Load last searched city.
     if (window.localStorage.getItem("previous-city") === null) {
+        // If none load Portland. Possibility to load city based on user location.
         cityWeather("Portland", apiKey, dataUnits);
         cityForecast("Portland", apiKey, dataUnits);
     } else {
@@ -19,13 +20,13 @@ $(document).ready(function(){
         // Local storage key for last searched city.
         localStorage.setItem("previous-city", userCity);
 
-        // Invoke current weather and forecast functions.
+        // Invoke save, current weather and forecast functions.
         saveCity(userCity);
         cityWeather(userCity, apiKey, dataUnits);
         cityForecast(userCity, apiKey, dataUnits);
     }); // citySearch
 
-    // Store searches to local storage.
+    // Save searches to local storage.
     function saveCity(city) {
         let citiesArr = [];
         citiesArr.push(city)
@@ -41,7 +42,7 @@ $(document).ready(function(){
         }
     }; // saveCity
 
-    // Render/pull city function
+    // Render/pull city function with dropdown menu.
 
     // Current weather condtions.
     function cityWeather(city, key, units) {

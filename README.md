@@ -1,7 +1,5 @@
 # Weather Dashboard
 
-* NOTE: You will have to search for a city initally.
-
 * Weather dashboard for searching weather data and forcast by city.
 
 * Weather data provided by Open Weahter API. 
