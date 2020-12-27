@@ -12,12 +12,13 @@ $(document).ready(function(){
         // Load weather for previously searched city. Find way to not have to use to local storage keys.
         cityWeather(localStorage.getItem('previous-city'), apiKey, dataUnits);
         cityForecast(localStorage.getItem('previous-city'), apiKey, dataUnits);
-        // invoke the dropdown function here
+        dropdownHistory();
     };
 
     // Load search history to dropdown menu.
-    function dropdownHistory(cities){
-        // get item local storage. localStorage.getItem('saved-cites').split(',')
+    function dropdownHistory(){
+        let savedArray = localStorage.getItem('saved-cites').split(',');
+        console.log(savedArray)
         // get that string into an array.
         // Clear the list before appending.
         // for loop to create a list item for each index.
@@ -58,7 +59,8 @@ $(document).ready(function(){
             // Save reverse chronological array in local storage.
             localStorage.setItem('saved-cites', citiesArr);
         }
-        // Invoke dropdown function again here on serach, you shouldn't need to pass an argument from here since the new city should already be saved to local storage before it is invoked. That function will pull from local storage and conver to array.
+        // Invoke function to update the dropdown.
+        dropdownHistory();
     }; // saveCity()
 
     // Current weather condtions.
