@@ -20,22 +20,27 @@ $(document).ready(function(){
         let savedArray = localStorage.getItem('saved-cites').split(',');
     
         // Clear the previous dropdown items.
-        //$('.city-dropdown').empty();
+        $('.city-dropdown').empty();
+
         // for loop to create a list item for each index.
         for (let i = 0; i < savedArray.length; i++) {
            // const dropdownItems = savedArray[i];
 
             let dropdownLi = $('<li>').addClass('dropdown-item dropdown-city').text(savedArray[i]);
             $('.city-dropdown').append(dropdownLi);
-
-            console.log(savedArray[i]);
         }
-
     }; // dropdownHistory()
+
+    // Need to add event listener and function to recall a city from the dropdown menu.
+    
+    $('.dropdown-item').on('click', function recallCity(){
+        console.log(this.text());
+    });
 
     // Event listener for searched city.
     $('#search-button').click(citySearch);
 
+    // Set variable for the current searched city and invoke save and weather functions.
     function citySearch(){
         const userCity = $('#city-search').val();
 
