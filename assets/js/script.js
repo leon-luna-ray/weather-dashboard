@@ -31,16 +31,22 @@ $(document).ready(function(){
         }
     }; // dropdownHistory()
 
-    // Need to add event listener and function to recall a city from the dropdown menu. Invoke get weather and get forecast fuctions!
-
     // Event listener for click inside the search history dropdown.
     $('.dropdown-item').click(recallCity);
     
     // Load weather data from city saved in the dropdown menu.
     function recallCity(){
-        const recalledCity = this
-        console.log(this);
-    };
+        const recalledCity = $(this).text();
+
+        // Clear previous city data off the page.
+        $('.current-weather').empty();
+        $('.forecast').empty();
+
+        // Load weather data and forecast for previously searched city.
+        cityWeather(recalledCity, apiKey, dataUnits);
+        cityForecast(recalledCity, apiKey, dataUnits);
+        console.log(recalledCity);
+    }; // recallCity()
 
     // Event listener for searched city.
     $('#search-button').click(citySearch);
