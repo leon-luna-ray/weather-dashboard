@@ -9,7 +9,7 @@ $(document).ready(function(){
         cityWeather('Portland', apiKey, dataUnits);
         cityForecast('Portland', apiKey, dataUnits);
     } else {
-        // Load weather for previously searched city. Find way to not have to use to local storage keys.
+        // Load weather for previously searched city and dropdown history.
         cityWeather(localStorage.getItem('previous-city'), apiKey, dataUnits);
         cityForecast(localStorage.getItem('previous-city'), apiKey, dataUnits);
         dropdownHistory();
@@ -19,24 +19,27 @@ $(document).ready(function(){
     function dropdownHistory(){
         let savedArray = localStorage.getItem('saved-cites').split(',');
         console.log(savedArray)
-        // get that string into an array.
-        // Clear the list before appending.
+    
+        // Clear the previous dropdown items.
+        $('.city-dropdown').empty();
         // for loop to create a list item for each index.
+        for (let i = 0; i < savedArray.length; i++) {
+            const dropdownItems = savedArray[i];
+            console.log(savedArray[i])
+        }
 
     }; // dropdownHistory()
 
     // Event listener for searched city.
     $('#search-button').click(citySearch);
 
-    // $('#search-bar') // Need to figure out how to do a keyup event on 'enter' and clear the search bar in the function.
-
     function citySearch(){
         const userCity = $('#city-search').val();
 
-        // Local storage key for last searched city.
+        // Save the current search to local storage.
         localStorage.setItem('previous-city', userCity);
 
-        // Clear previous city data.
+        // Clear previous city data off the page.
         $('.current-weather').empty();
         $('.forecast').empty();
 
@@ -46,7 +49,7 @@ $(document).ready(function(){
         cityForecast(userCity, apiKey, dataUnits);
     }; // citySearch(); 
 
-    // Save serach history to local storage and dropdown menu.
+    // Save serach history to local storage.
     function saveCity(city) {
         let citiesArr = [];
         citiesArr.push(city)
@@ -111,32 +114,32 @@ $(document).ready(function(){
         }); //getWeather()
     }; // cityWeather()
 
-// Five day forecast.
-function cityForecast(city, key, units) {
-    const forecastQueryURL = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=' + units + '&appid=' + key;
-    // API call for forecast.
-    $.ajax( {
-        url: forecastQueryURL
-    }).then(function getForecast(data) {
-        // Created array with diffent days from the data.
-        const daysArray = [data.list[0], data.list[8], data.list[16], data.list[24], data.list[32]];
+    // Five day forecast.
+    function cityForecast(city, key, units) {
+        const forecastQueryURL = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city + '&units=' + units + '&appid=' + key;
+        // API call for forecast.
+        $.ajax( {
+            url: forecastQueryURL
+        }).then(function getForecast(data) {
+            // Created array with diffent days from the data.
+            const daysArray = [data.list[0], data.list[8], data.list[16], data.list[24], data.list[32]];
 
-        // For loop to pull noon forecast data from ajax and append forecast cards to page.
-        for (let i = 0; i < daysArray.length; i++){
-            // Set up variables to crate forecast elements.
-            const forecastCard = $('<div>').addClass('forecast-card');
-            const forecastCardBody = $('<div>').addClass('forecast-card-body');
-            const forecastDate = $('<h1>').addClass('forecast-date').text(daysArray[i].dt_txt);
-            const forecastTemp = $('<p>').addClass('forecast-temprature').text(daysArray[i].main.temp.toFixed()  + '°F');
-            const forecastHumidity = $('<p>').addClass('forecast-humidity').text('Humidity: ' + daysArray[i].main.humidity + '%'); 
-            const forecastIcon =  $('<img>').attr('src', 'http://openweathermap.org/img/w/' + daysArray[i].weather[0].icon + '.png').addClass('forecast-icon');
+            // For loop to pull noon forecast data from ajax and append forecast cards to page.
+            for (let i = 0; i < daysArray.length; i++){
+                // Set up variables to crate forecast elements.
+                const forecastCard = $('<div>').addClass('forecast-card');
+                const forecastCardBody = $('<div>').addClass('forecast-card-body');
+                const forecastDate = $('<h1>').addClass('forecast-date').text(daysArray[i].dt_txt);
+                const forecastTemp = $('<p>').addClass('forecast-temprature').text(daysArray[i].main.temp.toFixed()  + '°F');
+                const forecastHumidity = $('<p>').addClass('forecast-humidity').text('Humidity: ' + daysArray[i].main.humidity + '%'); 
+                const forecastIcon =  $('<img>').attr('src', 'http://openweathermap.org/img/w/' + daysArray[i].weather[0].icon + '.png').addClass('forecast-icon');
 
-            // Append forecast cards.
-            forecastDate.append(forecastIcon);
-            forecastCardBody.append(forecastDate, forecastTemp, forecastHumidity);
-            forecastCard.append(forecastCardBody);
-            $('.forecast').append(forecastCard);
-        };  // loop
-    }); // getforecast()
+                // Append forecast cards.
+                forecastDate.append(forecastIcon);
+                forecastCardBody.append(forecastDate, forecastTemp, forecastHumidity);
+                forecastCard.append(forecastCardBody);
+                $('.forecast').append(forecastCard);
+            }; // loop
+        }); // getforecast()
     };  // cityforecast()
 }); // document.ready()
