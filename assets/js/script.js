@@ -36,7 +36,9 @@ $(document).ready(function(){
     // Event listener for click inside the search history dropdown.
     $('.dropdown-item').click(recallCity);
     
+    // Load weather data from city saved in the dropdown menu.
     function recallCity(){
+        const recalledCity = this
         console.log(this);
     };
 
