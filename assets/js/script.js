@@ -31,11 +31,14 @@ $(document).ready(function(){
         }
     }; // dropdownHistory()
 
-    // Need to add event listener and function to recall a city from the dropdown menu.
+    // Need to add event listener and function to recall a city from the dropdown menu. Invoke get weather and get forecast fuctions!
+
+    // Event listener for click inside the search history dropdown.
+    $('.dropdown-item').click(recallCity);
     
-    $('.dropdown-item').on('click', function recallCity(){
-        console.log(this.text());
-    });
+    function recallCity(){
+        console.log(this);
+    };
 
     // Event listener for searched city.
     $('#search-button').click(citySearch);
