@@ -24,14 +24,13 @@ $(document).ready(function(){
 
         // for loop to create a list item for each index.
         for (let i = 0; i < savedArray.length; i++) {
-           // const dropdownItems = savedArray[i];
-
-            let dropdownLi = $('<li>').addClass('dropdown-item dropdown-city').text(savedArray[i]);
+            const dropdownLi = $('<li>').addClass('dropdown-item dropdown-city').text(savedArray[i]);
             $('.city-dropdown').append(dropdownLi);
-        }
+        };
     }; // dropdownHistory()
 
     // Event listener for click inside the search history dropdown.
+    // Bug found where the click event does not work after searching until page reload.
     $('.dropdown-item').click(recallCity);
     
     // Load weather data from city saved in the dropdown menu.
@@ -42,7 +41,7 @@ $(document).ready(function(){
         $('.current-weather').empty();
         $('.forecast').empty();
 
-        // Load weather data and forecast for previously searched city.
+        // Load weather data and forecast for previously searched city and refresh dropdown.
         cityWeather(recalledCity, apiKey, dataUnits);
         cityForecast(recalledCity, apiKey, dataUnits);
     }; // recallCity()
@@ -65,7 +64,7 @@ $(document).ready(function(){
         saveCity(userCity);
         cityWeather(userCity, apiKey, dataUnits);
         cityForecast(userCity, apiKey, dataUnits);
-    }; // citySearch(); 
+    }; // citySearch()
 
     // Save serach history to local storage.
     function saveCity(city) {
