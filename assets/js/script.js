@@ -18,14 +18,17 @@ $(document).ready(function(){
     // Load search history to dropdown menu.
     function dropdownHistory(){
         let savedArray = localStorage.getItem('saved-cites').split(',');
-        console.log(savedArray)
     
         // Clear the previous dropdown items.
-        $('.city-dropdown').empty();
+        //$('.city-dropdown').empty();
         // for loop to create a list item for each index.
         for (let i = 0; i < savedArray.length; i++) {
-            const dropdownItems = savedArray[i];
-            console.log(savedArray[i])
+           // const dropdownItems = savedArray[i];
+
+            let dropdownLi = $('<li>').addClass('dropdown-item dropdown-city').text(savedArray[i]);
+            $('.city-dropdown').append(dropdownLi);
+
+            console.log(savedArray[i]);
         }
 
     }; // dropdownHistory()
