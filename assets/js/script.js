@@ -3,7 +3,7 @@ $(document).ready(function(){
     const apiKey = '40d735c04b7e328dff495db17c0a745b';
     const dataUnits = 'imperial'; // Possibility to add metric functionality.
 
-    // Load last searched city.
+    // Load last searched city or default.
     if (window.localStorage.getItem('saved-cites') === null) {
         // Load weather for Portland on first vist. Possibility to load based on user location.
         cityWeather('Portland', apiKey, dataUnits);
@@ -45,7 +45,6 @@ $(document).ready(function(){
         // Load weather data and forecast for previously searched city.
         cityWeather(recalledCity, apiKey, dataUnits);
         cityForecast(recalledCity, apiKey, dataUnits);
-        console.log(recalledCity);
     }; // recallCity()
 
     // Event listener for searched city.
