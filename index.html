@@ -13,39 +13,29 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
+    <!--Page header-->
     <nav class="nav-bar">
         <h1 class="nav-title">Weather Dashboard</h1>
     </nav>
 
     <div class="container">
+        <!--History and search bar-->
         <div id="search-bar" class="input-group">
+            <!--Dropdown Menu-->
             <button id="search-history" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">City</button>
-
-
-            <!--DIV WHERE LI ITEMS WILL BE RENDERED COPY THIS TO JS-->
             <ul class="city-dropdown dropdown-menu">
-                <p class="dropdown-item">Hello</p>
-              <li><a class="dropdown-item" href="#">Type to search</a></li>
-
-
             </ul>
-
-            <!--user iputs text here-->
+            <!--User Input-->
             <input type="text" id="city-search" class="form-control" aria-label="Text input with 2 dropdown buttons">
-
-
-            <!--NEW SEARCH BUTTON-->
+            <!--Search Button-->
             <button id ="search-button" class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-
-
           </div> <!--Search Bar-->
 
         <!--Weather Data Section-->
         <div class="weather-data">
-            <div class="current-weather"></div> <!--current conditions rendered here-->
-            <div class="forecast"></div> <!--rendered forcast days go here-->
+            <div class="current-weather"></div> <!--Current conditions-->
+            <div class="forecast"></div> <!--Forecast-->
         </div> <!--weather data div-->
-
     </div> <!--container-->
 
     <script src="./assets/js/script.js"></script>

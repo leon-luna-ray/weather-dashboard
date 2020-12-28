@@ -8,15 +8,13 @@
 
 * User can retrieve current weather data and five day forecast for any city.
 
-* Created HTML page with divs to render weather data dynamically.
-
-* Added styling to CSS to change UV color based on index.
-
 * Created three ajax calls to get the current weather, uv index and five day forecast.
 
-* Data is rendered dynamically based on the most recent data from the API.
+* Elements are rendered dynamically and stored based on user searches or history.
 
-* Still working on completing local storage and styling.
+* User search history is saved to local storage and can be recalled in the dropdown.
+
+* Added styling to CSS to change UV color based on index.
 
 
 URL: https://leon-luna-ray.github.io/hw06-weather-dashboard/
