@@ -69,7 +69,7 @@ $(document).ready(function(){
     // Save serach history to local storage.
     function saveCity(city) {
         let citiesArr = [];
-        citiesArr.push(city)
+        citiesArr.push(city);
 
         // If local storage is empty create new key for saving searches.
         if(window.localStorage.getItem('saved-cites') === null) {
