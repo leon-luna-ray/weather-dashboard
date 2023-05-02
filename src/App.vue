@@ -12,10 +12,6 @@ const state = reactive({
   data: null,
 });
 const city = ref('portland');
-const coorinates = ref({
-  lat: 0,
-  lon: 0,
-});
 
 // Computed
 const cityName = computed(() => {
@@ -23,28 +19,13 @@ const cityName = computed(() => {
 })
 
 // Methods
-const forecastQueryStr = (query) => {
-  return `${baseApiUrl}/data/2.5/forecast?q=${query}&appid=${apiKey}`
-}
-const currentDataStr = (lat, lon) => {
-  return `${baseApiUrl}/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}`
-}
-const coordinatesQueryStr = (query) => {
-  // {city name},{state code},{country code}
-  return `${baseApiUrl}/geo/1.0/direct?q=${query}&limit=1&appid=${apiKey}`
-}
 const fetchForecastData = async (query) => {
   state.isLoading = true;
+  const queryStr = `${baseApiUrl}/data/2.5/forecast?q=${query}&appid=${apiKey}`;
+
   try {
-    const response = await axios.get(coordinatesQueryStr(query));
-
-    coorinates.value.lat = response.data[0].lat;
-    coorinates.value.lon = response.data[0].lon;
-
-
-    // const forecast = await axios.get(oneCallQueryStr(coorinates.value.lat, coorinates.value.lon))
-    // console.log(forecast)
-    console.log(oneCallQueryStr(coorinates.value.lat, coorinates.value.lon))
+    const response = await axios.get(queryStr);
+    state.data = response.data;
   } catch (error) {
     state.error = error.message;
   } finally {
