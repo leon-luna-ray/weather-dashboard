@@ -16,9 +16,11 @@ const city = ref('portland');
 
 // Computed
 const cityName = computed(() => {
+  if (!state.current) { return null }
   return state.current.name;
 })
 const coordinates = computed(() => {
+  if (!state.current) { return null }
   return state.current.coord;
 })
 
@@ -33,7 +35,6 @@ const fetchCurrentData = async (query) => {
     state.error = error.message;
   }
 };
-
 const fetchForecastData = async (query) => {
   const queryStr = `${baseApiUrl}/data/2.5/forecast?q=${query}&appid=${apiKey}`;
 
@@ -44,20 +45,17 @@ const fetchForecastData = async (query) => {
     state.error = error.message;
   }
 };
-
 const fetchUvData = async () => {
-  console.log(coordinates.value)
-  // if (coordinates.value) {
-  //   const queryStr = `${baseApiUrl}/data/2.5/uvi?lat=${coordinates.value.lat}&lon=${coordinates.value.lon}&appid=${apiKey}`;
+  if (coordinates.value) {
+    const queryStr = `${baseApiUrl}/data/2.5/uvi?lat=${coordinates.value.lat}&lon=${coordinates.value.lon}&appid=${apiKey}`;
 
-  //   console.log(queryStr)
-  // }
-  // try {
-  //   const response = await axios.get(queryStr);
-  //   state.uv = response.data;
-  // } catch (error) {
-  //   state.error = error.message;
-  // }
+    try {
+      const response = await axios.get(queryStr);
+      state.uv = response.data;
+    } catch (error) {
+      state.error = error.message;
+    }
+  }
 };
 
 // Lifecycle
