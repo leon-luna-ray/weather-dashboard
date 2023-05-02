@@ -16,12 +16,16 @@ const city = ref('portland');
 
 // Computed
 const cityName = computed(() => {
-  if (!state.current) { return null }
+  if (!state.current) return null;
   return state.current.name;
 })
 const coordinates = computed(() => {
-  if (!state.current) { return null }
+  if (!state.current) return null;
   return state.current.coord;
+})
+const UVIndex = computed(() => {
+  if (!state.uv) return null;
+  return state.uv.value;
 })
 
 // Methods
