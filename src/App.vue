@@ -85,6 +85,12 @@ const formatDate = (str) => {
   return formattedDate;
 }
 
+const roundNumber = (num) => {
+  return Math.round(num);
+}
+const formatIconUrl = (iconCode) => {
+  return `http://openweathermap.org/img/w/${iconCode}.png`;
+}
 const toggleTemptrueUnits = () => {
   useMetricUnits.value = !useMetricUnits.value;
 }
@@ -138,8 +144,11 @@ watch(coordinates, async () => {
   <div>
     <h1>Weather Dashboard</h1>
     <div v-if="state.current" class="current-panel">
+
       <h2>{{ cityName }}</h2>
+
       <div class="current">
+        <span>Current Conditions</span>
         <h3>{{ temperatureCurrent }} {{ temperatureUnitSymbol }}</h3>
         <div class="img-wrap">
           <img :src="currentIconUrl" :alt="`${currentWeather} icon`">
@@ -155,9 +164,19 @@ watch(coordinates, async () => {
       </div>
 
     </div>
-    <div class="forecast">
-      <div v-for="item in forecastNoonData" class="card forecast-day">
-        <div class="date">{{ formatDate(item.dt_txt) }}</div>
+    <div class="forecast py-5">
+      <h3>Forecast</h3>
+      <div class="cards flex gap-5">
+        <div v-for="item in forecastNoonData" class="card forecast-day">
+          <div class="date">{{ formatDate(item.dt_txt) }}</div>
+          <div class="img-wrap">
+            <img :src="formatIconUrl(item.weather[0].icon)" />
+          </div>
+          <ul>
+            <li>Temp {{ roundNumber(item.main.temp) }}{{ temperatureUnitSymbol }}</li>
+            <li>Humidity {{ item.main.humidity }}%</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
