@@ -1,5 +1,6 @@
-import { computed, onBeforeMount, reactive, ref, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import { defineStore } from "pinia";
+import axios from 'axios'
 
 export const useWeatherStore = defineStore("weather", () => {
   // State
@@ -124,7 +125,31 @@ export const useWeatherStore = defineStore("weather", () => {
     if (!state.uv) return null;
     return state.uv.value;
   });
+  const UVColorClass = computed(() => ({
+    'bg-green-400 text-white': UVIndex.value < 4,
+    'bg-yellow-400': UVIndex.value >= 4 && UVIndex.value <= 8,
+    'bg-red-400 text-white': UVIndex.value > 8,
+}))
+
+  // Watchers
+  watch(coordinates, async () => {
+    state.uv = await fetchUvData();
+  });
+
   return {
-    useMetricUnits,
+    currentDescription,
+    currentIconUrl,
+    currentHumidity,
+    currentWeather,
+    currentWindSpeed,
+    temperatureCurrent,
+    temperatureMax,
+    temperatureMin,
+    temperatureUnitSymbol,
+    UVIndex,
+    UVColorClass,
+    fetchCurrentData,
+    fetchCurrentData,
+    fetchForecastData,
   };
 });

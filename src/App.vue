@@ -10,130 +10,132 @@ const apiKey = import.meta.env.VITE_APP_API_KEY
 const baseApiUrl = `https://api.openweathermap.org`
 
 // State
-const { useMetricUnits } = storeToRefs(useWeatherStore);
+// Move to ui store?
+const weatherStore = useWeatherStore();
+const { useMetricUnits } = storeToRefs(weatherStore);
 const city = ref('portland');
 
-const state = reactive({
-  error: null,
-  current: null,
-  forecast: null,
-  uv: null,
-});
+// const state = reactive({
+//   error: null,
+//   current: null,
+//   forecast: null,
+//   uv: null,
+// });
 
-// Computed
-const cityName = computed(() => {
-  const { name } = state.current || '';
-  return name;
-})
-const coordinates = computed(() => {
-  const { coord } = state.current || {};
-  return coord;
-})
-const currentDescription = computed(() => {
-  return state.current?.weather[0].description;
-})
-const currentHumidity = computed(() => {
-  return `${state.current?.main.humidity}%`;
-})
-const currentWeather = computed(() => {
-  return state.current.weather[0].main;
-})
-const currentIconUrl = computed(() => {
-  const iconCode = state.current.weather[0].icon || '#'
-  return `http://openweathermap.org/img/w/${iconCode}.png`;
-})
-const currentWindSpeed = computed(() => {
-  const units = useMetricUnits.value ? 'km/h' : 'mph'
-  return `${Math.round(state.current.wind.speed)} ${units}`;
-})
-const forecastNoonData = computed(() => {
-  const indecies = [2, 10, 18, 26, 34];
-  return state.forecast?.list.filter((item, index) => indecies.includes(index));
-});
-const temperatureCurrent = computed(() => {
-  const { temp } = state.current?.main || {};
-  return Math.round(temp);
-})
-const temperatureMax = computed(() => {
-  return Math.round(state.current?.main.temp_max);
-})
-const temperatureMin = computed(() => {
-  return Math.round(state.current?.main.temp_min);
-})
-const temperatureUnits = computed(() => {
-  return useMetricUnits.value ? 'metric' : 'imperial';
-})
-const temperatureUnitTitle = computed(() => {
-  return useMetricUnits.value ? 'celsius' : 'fahrenheit';
-})
-const temperatureUnitSymbol = computed(() => {
-  return useMetricUnits.value ? '°C' : '°F';
-})
-const UVIndex = computed(() => {
-  if (!state.uv) return null;
-  return state.uv.value;
-})
-const UVColorClass = computed(() => ({
-  'bg-green-400 text-white': UVIndex.value < 4,
-  'bg-yellow-400': UVIndex.value >= 4 && UVIndex.value <= 8,
-  'bg-red-400 text-white': UVIndex.value > 8,
-}))
+// // Computed
+// const cityName = computed(() => {
+//   const { name } = state.current || '';
+//   return name;
+// })
+// const coordinates = computed(() => {
+//   const { coord } = state.current || {};
+//   return coord;
+// })
+// const currentDescription = computed(() => {
+//   return state.current?.weather[0].description;
+// })
+// const currentHumidity = computed(() => {
+//   return `${state.current?.main.humidity}%`;
+// })
+// const currentWeather = computed(() => {
+//   return state.current.weather[0].main;
+// })
+// const currentIconUrl = computed(() => {
+//   const iconCode = state.current.weather[0].icon || '#'
+//   return `http://openweathermap.org/img/w/${iconCode}.png`;
+// })
+// const currentWindSpeed = computed(() => {
+//   const units = useMetricUnits.value ? 'km/h' : 'mph'
+//   return `${Math.round(state.current.wind.speed)} ${units}`;
+// })
+// const forecastNoonData = computed(() => {
+//   const indecies = [2, 10, 18, 26, 34];
+//   return state.forecast?.list.filter((item, index) => indecies.includes(index));
+// });
+// const temperatureCurrent = computed(() => {
+//   const { temp } = state.current?.main || {};
+//   return Math.round(temp);
+// })
+// const temperatureMax = computed(() => {
+//   return Math.round(state.current?.main.temp_max);
+// })
+// const temperatureMin = computed(() => {
+//   return Math.round(state.current?.main.temp_min);
+// })
+// const temperatureUnits = computed(() => {
+//   return useMetricUnits.value ? 'metric' : 'imperial';
+// })
+// const temperatureUnitTitle = computed(() => {
+//   return useMetricUnits.value ? 'celsius' : 'fahrenheit';
+// })
+// const temperatureUnitSymbol = computed(() => {
+//   return useMetricUnits.value ? '°C' : '°F';
+// })
+// const UVIndex = computed(() => {
+//   if (!state.uv) return null;
+//   return state.uv.value;
+// })
+// const UVColorClass = computed(() => ({
+//   'bg-green-400 text-white': UVIndex.value < 4,
+//   'bg-yellow-400': UVIndex.value >= 4 && UVIndex.value <= 8,
+//   'bg-red-400 text-white': UVIndex.value > 8,
+// }))
 
-// Methods
-const formatDate = (str) => {
-  const date = new Date(str);
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  const formattedDate = date.toLocaleDateString('en-US', options);
-  return formattedDate;
-}
+// // Methods
+// const formatDate = (str) => {
+//   const date = new Date(str);
+//   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+//   const formattedDate = date.toLocaleDateString('en-US', options);
+//   return formattedDate;
+// }
 
-const roundNumber = (num) => {
-  return Math.round(num);
-}
-const formatIconUrl = (iconCode) => {
-  return `http://openweathermap.org/img/w/${iconCode}.png`;
-}
-const toggleTemptrueUnits = () => {
-  useMetricUnits.value = !useMetricUnits.value;
-}
-// API Calls
-const fetchCurrentData = async (query) => {
-  const queryStr = `${baseApiUrl}/data/2.5/weather?q=${query}&units=${temperatureUnits.value}&appid=${apiKey}`;
+// const roundNumber = (num) => {
+//   return Math.round(num);
+// }
+// const formatIconUrl = (iconCode) => {
+//   return `http://openweathermap.org/img/w/${iconCode}.png`;
+// }
+// const toggleTemptrueUnits = () => {
+//   useMetricUnits.value = !useMetricUnits.value;
+// }
+// // API Calls
+// const fetchCurrentData = async (query) => {
+//   const queryStr = `${baseApiUrl}/data/2.5/weather?q=${query}&units=${temperatureUnits.value}&appid=${apiKey}`;
 
-  try {
-    const response = await axios.get(queryStr);
-    return response.data;
-  } catch (error) {
-    return error.message;
-  }
-};
-const fetchForecastData = async (query) => {
-  const queryStr = `${baseApiUrl}/data/2.5/forecast?q=${query}&units=${temperatureUnits.value}&appid=${apiKey}`;
+//   try {
+//     const response = await axios.get(queryStr);
+//     return response.data;
+//   } catch (error) {
+//     return error.message;
+//   }
+// };
+// const fetchForecastData = async (query) => {
+//   const queryStr = `${baseApiUrl}/data/2.5/forecast?q=${query}&units=${temperatureUnits.value}&appid=${apiKey}`;
 
-  try {
-    const response = await axios.get(queryStr);
-    return response.data;
-  } catch (error) {
-    return error.message;
-  }
-};
-const fetchUvData = async () => {
-  if (coordinates.value) {
-    const queryStr = `${baseApiUrl}/data/2.5/uvi?lat=${coordinates.value.lat}&lon=${coordinates.value.lon}&appid=${apiKey}`;
+//   try {
+//     const response = await axios.get(queryStr);
+//     return response.data;
+//   } catch (error) {
+//     return error.message;
+//   }
+// };
+// const fetchUvData = async () => {
+//   if (coordinates.value) {
+//     const queryStr = `${baseApiUrl}/data/2.5/uvi?lat=${coordinates.value.lat}&lon=${coordinates.value.lon}&appid=${apiKey}`;
 
-    try {
-      const response = await axios.get(queryStr);
-      return response.data;
-    } catch (error) {
-      return error.message;
-    }
-  }
-};
+//     try {
+//       const response = await axios.get(queryStr);
+//       return response.data;
+//     } catch (error) {
+//       return error.message;
+//     }
+//   }
+// };
 
 // Lifecycle
 onBeforeMount(async () => {
-  state.current = await fetchCurrentData(city.value);
-  state.forecast = await fetchForecastData(city.value);
+  await weatherStore.fetchCurrentData(city.value);
+  await weatherStore.fetchForecastData(city.value);
 })
 
 // Watchers
@@ -146,7 +148,8 @@ watch(coordinates, async () => {
   <div v-if="!state.current || !state.forecast">Loading...</div>
   <div v-else class="container flex flex-col justify-center">
     <h1>Weather Dashboard</h1>
-    <div v-if="state.current" class="current-panel">
+    <CurrentPanel />
+    <!-- <div v-if="state.current" class="current-panel">
 
       <h2>{{ cityName }}</h2>
 
@@ -181,6 +184,6 @@ watch(coordinates, async () => {
           </ul>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
