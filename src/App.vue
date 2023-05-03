@@ -44,6 +44,9 @@ const currentWindSpeed = computed(() => {
   // Todo add km/h
   return `${Math.round(state.current.wind.speed)} mph`;
 })
+const forecastData = computed(() => {
+
+})
 const temperatureCurrent = computed(() => {
   const { temp } = state.current?.main || {};
   return Math.round(temp);
