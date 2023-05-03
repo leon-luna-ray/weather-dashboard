@@ -141,7 +141,8 @@ watch(coordinates, async () => {
 </script>
 
 <template>
-  <div class="container flex flex-col justify-center">
+  <div v-if="!state.current || !state.forecast">Loading...</div>
+  <div v-else class="container flex flex-col justify-center">
     <h1>Weather Dashboard</h1>
     <div v-if="state.current" class="current-panel">
 
