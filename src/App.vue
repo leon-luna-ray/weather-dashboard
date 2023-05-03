@@ -30,12 +30,19 @@ const coordinates = computed(() => {
 const currentDescription = computed(() => {
   return state.current?.weather[0].description;
 })
+const currentHumidity = computed(() => {
+  return `${state.current?.main.humidity}%`;
+})
 const currentWeather = computed(() => {
   return state.current.weather[0].main;
 })
 const currentIconUrl = computed(() => {
   const iconCode = state.current.weather[0].icon || '#'
   return `http://openweathermap.org/img/w/${iconCode}.png`;
+})
+const currentWindSpeed = computed(() => {
+  // Todo add km/h
+  return `${Math.round(state.current.wind.speed)} mph`;
 })
 const temperatureCurrent = computed(() => {
   const { temp } = state.current?.main || {};
@@ -129,6 +136,8 @@ watch(coordinates, async () => {
         <p>{{ currentDescription }}</p>
         <ul>
           <li v-if="state.uv" :class="['w-max', UVColorClass]">UV Index: {{ state.uv.value }}</li>
+          <li>Humidity {{ currentHumidity }}</li>
+          <li>Wind {{ currentWindSpeed }}</li>
           <li>Max {{ temperatureMax }}{{ temperatureUnitSymbol }}</li>
           <li>Min {{ temperatureMin }}{{ temperatureUnitSymbol }}</li>
         </ul>
@@ -136,8 +145,5 @@ watch(coordinates, async () => {
 
     </div>
     <div class="forecast"></div>
-
-    <button @click="toggleTemptrueUnits" class="border p-3 my-3">Toggle Units</button>
-    <div>{{ temperatureUnitTitle }}</div>
   </div>
 </template>

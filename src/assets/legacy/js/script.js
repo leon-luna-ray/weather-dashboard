@@ -1,6 +1,4 @@
 $(document).ready(function(){
-    // API key and units.
-    const apiKey = '40d735c04b7e328dff495db17c0a745b';
     const dataUnits = 'imperial'; // Possibility to add metric functionality.
 
     // Load last searched city or default.
