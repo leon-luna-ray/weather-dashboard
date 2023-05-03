@@ -10,8 +10,9 @@
 
 ## Technologies
 
-- JavaScript
 - Vue.js
 - Vite.js
+- JavaScript
+- HTML5
 - CSS3
 - TailwindCSS
