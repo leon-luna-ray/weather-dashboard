@@ -44,9 +44,10 @@ const currentWindSpeed = computed(() => {
   // Todo add km/h
   return `${Math.round(state.current.wind.speed)} mph`;
 })
-const forecastData = computed(() => {
-
-})
+const forecastNoonData = computed(() => {
+  const indecies = [2, 10, 18, 26, 34];
+  return state.forecast?.list.filter((item, index) => indecies.includes(index));
+});
 const temperatureCurrent = computed(() => {
   const { temp } = state.current?.main || {};
   return Math.round(temp);
@@ -77,6 +78,13 @@ const UVColorClass = computed(() => ({
 }))
 
 // Methods
+const formatDate = (str) => {
+  const date = new Date(str);
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const formattedDate = date.toLocaleDateString('en-US', options);
+  return formattedDate;
+}
+
 const toggleTemptrueUnits = () => {
   useMetricUnits.value = !useMetricUnits.value;
 }
@@ -147,6 +155,10 @@ watch(coordinates, async () => {
       </div>
 
     </div>
-    <div class="forecast"></div>
+    <div class="forecast">
+      <div v-for="item in forecastNoonData" class="card forecast-day">
+        <div class="date">{{ formatDate(item.dt_txt) }}</div>
+      </div>
+    </div>
   </div>
 </template>
