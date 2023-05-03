@@ -1,15 +1,17 @@
 <script setup>
 import { computed, onBeforeMount, reactive, ref, watch } from 'vue';
+import { storeToRefs } from 'pinia'
 import axios from 'axios'
 
+import { useWeatherStore } from './stores/weather'
 import CurrentPanel from './components/CurrentPanel.vue';
 
 const apiKey = import.meta.env.VITE_APP_API_KEY
 const baseApiUrl = `https://api.openweathermap.org`
 
 // State
+const { useMetricUnits } = storeToRefs(useWeatherStore);
 const city = ref('portland');
-const useMetricUnits = ref(false);
 
 const state = reactive({
   error: null,
