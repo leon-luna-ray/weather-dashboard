@@ -41,8 +41,8 @@ const currentIconUrl = computed(() => {
   return `http://openweathermap.org/img/w/${iconCode}.png`;
 })
 const currentWindSpeed = computed(() => {
-  // Todo add km/h
-  return `${Math.round(state.current.wind.speed)} mph`;
+  const units = useMetricUnits.value ? 'km/h' : 'mph'
+  return `${Math.round(state.current.wind.speed)} ${units}`;
 })
 const forecastNoonData = computed(() => {
   const indecies = [2, 10, 18, 26, 34];
