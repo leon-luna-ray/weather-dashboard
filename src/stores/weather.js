@@ -1,4 +1,4 @@
-import { computed, reactive, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
@@ -20,8 +20,8 @@ export const useWeatherStore = defineStore('weather', () => {
     return current.value?.name || null;
   });
   const currentDescription = computed(() => {
-  return current.value?.weather[0].description;
-})
+    return current.value?.weather[0].description;
+  });
   const currentHumidity = computed(() => {
     return `${current.value?.main.humidity}%`;
   });
@@ -32,6 +32,12 @@ export const useWeatherStore = defineStore('weather', () => {
   const currentWindSpeed = computed(() => {
     const units = useMetricUnits.value ? 'km/h' : 'mph';
     return `${Math.round(current.value?.wind.speed)} ${units}`;
+  });
+  const forecastNoonData = computed(() => {
+    const indecies = [2, 10, 18, 26, 34];
+    return forecast.value?.list.filter((item, index) =>
+      indecies.includes(index)
+    );
   });
   const temperatureCurrent = computed(() => {
     return Math.round(current.value?.main.temp) || null;
@@ -44,9 +50,6 @@ export const useWeatherStore = defineStore('weather', () => {
   });
   const temperatureUnits = computed(() => {
     return useMetricUnits.value ? 'metric' : 'imperial';
-  });
-  const temperatureUnitTitle = computed(() => {
-    return useMetricUnits.value ? 'celsius' : 'fahrenheit';
   });
   const temperatureUnitSymbol = computed(() => {
     return useMetricUnits.value ? '°C' : '°F';
@@ -62,9 +65,9 @@ export const useWeatherStore = defineStore('weather', () => {
 
   // API Calls
   const fetchData = async (city) => {
-    const queryStr = `${baseApiUrl}/data/2.5/weather?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
+    const weatherQueryStr = `${baseApiUrl}/data/2.5/weather?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
     try {
-      const response = await axios.get(queryStr);
+      const response = await axios.get(weatherQueryStr);
       current.value = response.data;
       if (current.value.coord) {
         fetchUvData(current.value.coord);
@@ -72,7 +75,6 @@ export const useWeatherStore = defineStore('weather', () => {
     } catch (error) {
       console.error(error.msg);
     }
-
     const forecastQueryStr = `${baseApiUrl}/data/2.5/forecast?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
     try {
       const response = await axios.get(forecastQueryStr);
@@ -81,7 +83,6 @@ export const useWeatherStore = defineStore('weather', () => {
       console.error(error.msg);
     }
   };
-
   const fetchUvData = async (coord) => {
     const uvQueryStr = `${baseApiUrl}/data/2.5/uvi?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}`;
     try {
@@ -96,7 +97,9 @@ export const useWeatherStore = defineStore('weather', () => {
     cityName,
     currentDescription,
     currentIconUrl,
+    currentHumidity,
     currentWindSpeed,
+    forecastNoonData,
     isCurrentLoaded,
     temperatureCurrent,
     temperatureMax,

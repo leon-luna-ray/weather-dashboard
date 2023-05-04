@@ -18,7 +18,6 @@ const {
     UVIndex,
     UVColorClass,
 } = storeToRefs(weatherStore);
-
 </script>
 
 <template>
@@ -26,7 +25,6 @@ const {
         <h2>{{ cityName }}</h2>
         <span>Current Conditions</span>
         <h3>{{ temperatureCurrent }} {{ temperatureUnitSymbol }}</h3>
-
         <div class="img-wrap">
             <img :src="currentIconUrl" :alt="`${currentDescription} icon`">
         </div>
