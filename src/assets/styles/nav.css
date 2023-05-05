@@ -1,0 +1,14 @@
+@layer components {
+    #sidebar .title {
+        @apply text-32 font-thin;
+    }
+    #sidebar .search {
+        @apply flex flex-col w-[75%];
+    }
+    #sidebar .search input {
+        @apply border;
+    }
+    #sidebar .search button {
+        @apply border;
+    }
+}

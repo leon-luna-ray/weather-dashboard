@@ -1,5 +1,5 @@
 @layer utilities {
-    .test-boder {
+    .test-border {
         @apply border-2 border-red-600;
     }
 }

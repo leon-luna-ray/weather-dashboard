@@ -24,7 +24,7 @@ const {
     <div v-if="isCurrentLoaded" class="current">
         <h2>{{ cityName }}</h2>
         <span>Current Conditions</span>
-        <h3>{{ temperatureCurrent }} {{ temperatureUnitSymbol }}</h3>
+        <h3>{{ temperatureCurrent }}{{ temperatureUnitSymbol }}</h3>
         <div class="img-wrap">
             <img :src="currentIconUrl" :alt="`${currentDescription} icon`">
         </div>

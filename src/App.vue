@@ -3,6 +3,7 @@ import { onBeforeMount, ref, } from 'vue';
 import { useWeatherStore } from './stores/weather'
 import CurrentPanel from './components/CurrentPanel.vue';
 import ForecastPanel from './components/ForecastPanel.vue';
+import Sidebar from './components/Sidebar.vue';
 
 // State
 const weatherStore = useWeatherStore();
@@ -15,9 +16,11 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="container flex flex-col justify-center">
-    <h1>Weather Dashboard</h1>
-    <CurrentPanel />
-    <ForecastPanel />
+  <div id="app-main">
+    <Sidebar />
+    <main>
+      <CurrentPanel />
+      <ForecastPanel />
+    </main>
   </div>
 </template>
