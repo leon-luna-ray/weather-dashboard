@@ -1,4 +1,6 @@
 @import './base.css';
+@import './layouts.css';
+@import './nav.css';
 @import './text.css';
 @import './utilities.css';
 

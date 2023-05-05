@@ -1,0 +1,11 @@
+@layer base {
+    #app-main {
+        @apply container grid grid-cols-12 justify-center;
+    }
+    #app-main main {
+        @apply col-span-9;
+    }
+    #app-main #sidebar {
+        @apply col-span-3;
+    }
+}
