@@ -9,8 +9,6 @@ import Sidebar from './components/Sidebar.vue';
 
 // State
 const weatherStore = useWeatherStore();
-const searchStore = useSearchStore();
-const { currentCity } = storeToRefs(searchStore);
 
 // Lifecycle
 onBeforeMount(() => {
