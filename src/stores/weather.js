@@ -16,8 +16,11 @@ export const useWeatherStore = defineStore('weather', () => {
   const isCurrentLoaded = computed(() => {
     return current.value !== null;
   });
-  const cityName = computed(() => {
+  const currentCityName = computed(() => {
     return current.value?.name || null;
+  });
+  const currentCityId = computed(() => {
+    return current.value?.id || null;
   });
   const currentDescription = computed(() => {
     return current.value?.weather[0].description;
@@ -94,7 +97,8 @@ export const useWeatherStore = defineStore('weather', () => {
   };
 
   return {
-    cityName,
+    currentCityName,
+    currentCityId,
     currentDescription,
     currentIconUrl,
     currentHumidity,

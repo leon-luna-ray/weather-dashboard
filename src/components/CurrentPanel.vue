@@ -5,7 +5,7 @@ import { useWeatherStore } from '../stores/weather'
 // State
 const weatherStore = useWeatherStore();
 const {
-    cityName,
+    currentCityName,
     currentDescription,
     currentIconUrl,
     currentHumidity,
@@ -22,7 +22,7 @@ const {
 
 <template>
     <div v-if="isCurrentLoaded" class="current">
-        <h2>{{ cityName }}</h2>
+        <h2>{{ currentCityName }}</h2>
         <span>Current Conditions</span>
         <h3>{{ temperatureCurrent }}{{ temperatureUnitSymbol }}</h3>
         <div class="img-wrap">
