@@ -19,13 +19,15 @@ export const useSearchStore = defineStore('search', () => {
   };
   const setCities = (arr) => {
     const uniqueArray = [...new Set(arr)].reverse();
-    cities.value = uniqueArray.slice(0, 10);
+    cities.value = uniqueArray;
   };
 
   // Watchers
   watch(cityName, () => {
     const city = cityName.value.toLowerCase();
-    cities.value.unshift(city);
+    cities.value.unshift(city)
+    // Limit saved items to 10 (for now)
+    cities.value = cities.value.slice(0,10);
     updateLocalStorage(cities.value);
   });
 
