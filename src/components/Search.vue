@@ -1,21 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue';
-import { useWeatherStore } from '../stores/weather'
-import _ from 'lodash'; // import the Lodash library
+import { ref } from 'vue';
+import { useSearchStore } from '../stores/search';
 
-const weatherStore = useWeatherStore();
 const searchQuery = ref('');
-
-// Define a debounce function to delay the search request
-const debounceSearch = _.debounce(() => {
-    console.log('Search query:', searchQuery.value);
-    // Perform search request and update searchResults
-    weatherStore.fetchData(searchQuery.value);
-    searchQuery.value = '';
-}, 200);
+const searchStore = useSearchStore();
 
 function handleSubmit() {
-    debounceSearch();
+    searchStore.debounceSearch(searchQuery.value);
+    searchQuery.value = '';
 }
 </script>
 
