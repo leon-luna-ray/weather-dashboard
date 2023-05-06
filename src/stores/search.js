@@ -13,23 +13,22 @@ export const useSearchStore = defineStore('search', () => {
   const debounceSearch = _.debounce((query) => {
     weatherStore.fetchData(query);
   }, 200);
-
   const updateLocalStorage = (cities) => {
     localStorage.setItem('wd-rldev-prev', JSON.stringify(cities));
   };
   const setSearchHistory = (arr) => {
     const uniqueCities = [];
     const idSet = new Set();
-
+    // Check for duplicates
     for (const city of arr) {
       if (!idSet.has(city.id)) {
         uniqueCities.push(city);
         idSet.add(city.id);
       }
     }
-
     searchHistory.value = uniqueCities.slice(0, 10);
   };
+
   // Watchers
   watch(currentCityId, () => {
     const city = {
