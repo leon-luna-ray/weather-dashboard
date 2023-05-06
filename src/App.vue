@@ -1,17 +1,26 @@
 <script setup>
-import { onBeforeMount, ref, } from 'vue';
+import { onBeforeMount } from 'vue';
+import { storeToRefs } from 'pinia'
 import { useWeatherStore } from './stores/weather'
+import { useSearchStore } from './stores/search'
 import CurrentPanel from './components/CurrentPanel.vue';
 import ForecastPanel from './components/ForecastPanel.vue';
 import Sidebar from './components/Sidebar.vue';
 
 // State
 const weatherStore = useWeatherStore();
-const city = ref('portland');
+const searchStore = useSearchStore();
+const { currentCity } = storeToRefs(searchStore);
 
 // Lifecycle
-onBeforeMount(async () => {
-  await weatherStore.fetchData(city.value);
+onBeforeMount(() => {
+  if (!window.localStorage.getItem('wd-rldev-prev')) {
+    weatherStore.fetchData('portland');
+  }
+  else {
+    const prevCity = localStorage.getItem('wd-rldev-prev');
+    weatherStore.fetchData(prevCity);
+  }
 })
 </script>
 
