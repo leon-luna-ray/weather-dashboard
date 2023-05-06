@@ -1,4 +1,4 @@
-import { ref, watch, computed } from 'vue';
+import { ref, watch } from 'vue';
 import { defineStore, storeToRefs } from 'pinia';
 import { useWeatherStore } from './weather';
 import _ from 'lodash';
