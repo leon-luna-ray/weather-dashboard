@@ -7,24 +7,26 @@ export const useSearchStore = defineStore('search', () => {
   // State
   const weatherStore = useWeatherStore();
   const { cityName } = storeToRefs(weatherStore);
-  const currentCity = ref(null);
+  const cities = ref([]);
 
   // Methods
   const debounceSearch = _.debounce((query) => {
     weatherStore.fetchData(query);
   }, 200);
 
-  const setLocalStorage = (city) => {
-    localStorage.setItem('wd-rldev-prev', city)
+  const updateLocalStorage = (cities) => {
+    localStorage.setItem('wd-rldev-prev', JSON.stringify(cities));
   };
 
+  // Watchers
   watch(cityName, () => {
     const city = cityName.value.toLowerCase();
-    setLocalStorage(city);
+    cities.value.push(city);
+    updateLocalStorage(cities.value);
   });
 
   return {
-    currentCity,
+    cities,
     debounceSearch,
   };
 });
