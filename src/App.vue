@@ -1,5 +1,6 @@
 <script setup>
 import { onBeforeMount } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useWeatherStore } from './stores/weather'
 import { useSearchStore } from './stores/search'
 import CurrentPanel from './components/CurrentPanel.vue';
@@ -16,7 +17,7 @@ onBeforeMount(() => {
     // Todo find a way to recall prev city by ID
     const prevCity = JSON.parse(localStorage.getItem('wd-rldev-prev'))[0].name;
     weatherStore.fetchData(prevCity);
-    searchStore.setCities(JSON.parse(localStorage.getItem('wd-rldev-prev')));
+    searchStore.setSearchHistory(JSON.parse(localStorage.getItem('wd-rldev-prev')));
   }
   else {
     weatherStore.fetchData('portland');

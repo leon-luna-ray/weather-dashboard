@@ -1,4 +1,4 @@
-import { ref, watch, onBeforeMount } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { defineStore, storeToRefs } from 'pinia';
 import { useWeatherStore } from './weather';
 import _ from 'lodash';
@@ -7,7 +7,7 @@ export const useSearchStore = defineStore('search', () => {
   // State
   const weatherStore = useWeatherStore();
   const { currentCityName, currentCityId } = storeToRefs(weatherStore);
-  const cities = ref([]);
+  const searchHistory = ref([]);
 
   // Methods
   const debounceSearch = _.debounce((query) => {
@@ -17,7 +17,7 @@ export const useSearchStore = defineStore('search', () => {
   const updateLocalStorage = (cities) => {
     localStorage.setItem('wd-rldev-prev', JSON.stringify(cities));
   };
-  const setCities = (arr) => {
+  const setSearchHistory = (arr) => {
     const uniqueCities = [];
     const idSet = new Set();
 
@@ -28,7 +28,7 @@ export const useSearchStore = defineStore('search', () => {
       }
     }
 
-    cities.value = uniqueCities.slice(0, 10);
+    searchHistory.value = uniqueCities.slice(0, 10);
   };
   // Watchers
   watch(currentCityId, () => {
@@ -36,20 +36,17 @@ export const useSearchStore = defineStore('search', () => {
       id: currentCityId.value,
       name: currentCityName.value,
     };
-    if (cities.value.length) {
-      setCities([city, ...cities.value]);
+    if (searchHistory.value.length) {
+      setSearchHistory([city, ...searchHistory.value]);
     } else {
-      setCities([city]);
+      setSearchHistory([city]);
     }
-    // cities.value.unshift(city);
-    // Limit saved items to 10 (for now)
-    // cities.value = cities.value.slice(0, 10);
-    updateLocalStorage(cities.value);
+    updateLocalStorage(searchHistory.value);
   });
 
   return {
-    cities,
+    searchHistory,
     debounceSearch,
-    setCities,
+    setSearchHistory,
   };
 });
