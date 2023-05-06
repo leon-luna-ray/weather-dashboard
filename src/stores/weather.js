@@ -16,8 +16,11 @@ export const useWeatherStore = defineStore('weather', () => {
   const isCurrentLoaded = computed(() => {
     return current.value !== null;
   });
-  const cityName = computed(() => {
+  const currentCityName = computed(() => {
     return current.value?.name || null;
+  });
+  const currentCityId = computed(() => {
+    return current.value?.id || null;
   });
   const currentDescription = computed(() => {
     return current.value?.weather[0].description;
@@ -64,8 +67,10 @@ export const useWeatherStore = defineStore('weather', () => {
   }));
 
   // API Calls
-  const fetchData = async (city) => {
-    const weatherQueryStr = `${baseApiUrl}/data/2.5/weather?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
+  const fetchData = async (city, id) => {
+    const weatherQueryStr = id
+      ? `${baseApiUrl}/data/2.5/weather?id=${id}&units=${temperatureUnits.value}&appid=${apiKey}`
+      : `${baseApiUrl}/data/2.5/weather?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
     try {
       const response = await axios.get(weatherQueryStr);
       current.value = response.data;
@@ -75,7 +80,9 @@ export const useWeatherStore = defineStore('weather', () => {
     } catch (error) {
       console.error(error.msg);
     }
-    const forecastQueryStr = `${baseApiUrl}/data/2.5/forecast?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
+    const forecastQueryStr = id
+      ? `${baseApiUrl}/data/2.5/forecast?id=${id}&units=${temperatureUnits.value}&appid=${apiKey}`
+      : `${baseApiUrl}/data/2.5/forecast?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
     try {
       const response = await axios.get(forecastQueryStr);
       forecast.value = response.data;
@@ -94,7 +101,8 @@ export const useWeatherStore = defineStore('weather', () => {
   };
 
   return {
-    cityName,
+    currentCityName,
+    currentCityId,
     currentDescription,
     currentIconUrl,
     currentHumidity,
