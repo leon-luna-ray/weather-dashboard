@@ -1,21 +1,24 @@
 <script setup>
 import { onBeforeMount } from 'vue';
 import { useWeatherStore } from './stores/weather'
+import { useSearchStore } from './stores/search'
 import CurrentPanel from './components/CurrentPanel.vue';
 import ForecastPanel from './components/ForecastPanel.vue';
 import Sidebar from './components/Sidebar.vue';
 
 // State
 const weatherStore = useWeatherStore();
+const searchStore = useSearchStore();
 
 // Lifecycle
 onBeforeMount(() => {
-  if (!window.localStorage.getItem('wd-rldev-prev')) {
-    weatherStore.fetchData('portland');
-  }
-  else {
+  if (localStorage.getItem('wd-rldev-prev')) {
     const prevCity = JSON.parse(localStorage.getItem('wd-rldev-prev'))[0];
     weatherStore.fetchData(prevCity);
+    searchStore.setCities(JSON.parse(localStorage.getItem('wd-rldev-prev')));
+  }
+  else {
+    weatherStore.fetchData('portland');
   }
 })
 </script>

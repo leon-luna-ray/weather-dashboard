@@ -1,4 +1,4 @@
-import { ref, watch } from 'vue';
+import { ref, watch, onBeforeMount } from 'vue';
 import { defineStore, storeToRefs } from 'pinia';
 import { useWeatherStore } from './weather';
 import _ from 'lodash';
@@ -18,15 +18,19 @@ export const useSearchStore = defineStore('search', () => {
     localStorage.setItem('wd-rldev-prev', JSON.stringify(cities));
   };
 
+  const setCities = (arr) => {
+    cities.value = arr.reverse();
+  };
   // Watchers
   watch(cityName, () => {
     const city = cityName.value.toLowerCase();
-    cities.value.push(city);
+    cities.value.unshift(city);
     updateLocalStorage(cities.value);
   });
 
   return {
     cities,
     debounceSearch,
+    setCities,
   };
 });
