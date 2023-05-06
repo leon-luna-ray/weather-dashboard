@@ -14,9 +14,9 @@ const searchStore = useSearchStore();
 // Lifecycle
 onBeforeMount(() => {
   if (localStorage.getItem('wd-rldev-prev')) {
-    // Todo find a way to recall prev city by ID
     const prevCity = JSON.parse(localStorage.getItem('wd-rldev-prev'))[0].name;
-    weatherStore.fetchData(prevCity);
+    const prevId = JSON.parse(localStorage.getItem('wd-rldev-prev'))[0].id;
+    weatherStore.fetchData(prevCity, prevId);
     searchStore.setSearchHistory(JSON.parse(localStorage.getItem('wd-rldev-prev')));
   }
   else {
