@@ -1,23 +1,52 @@
 <script setup>
+import { computed, ref } from 'vue';
 import { storeToRefs } from 'pinia'
 import { useWeatherStore } from '../stores/weather'
 
 // State
 const weatherStore = useWeatherStore();
 const {
+    current,
     currentCityName,
-    currentDescription,
-    currentIconUrl,
-    currentHumidity,
-    isCurrentLoaded,
-    currentWindSpeed,
-    temperatureCurrent,
-    temperatureMax,
-    temperatureMin,
     temperatureUnitSymbol,
-    UVIndex,
-    UVColorClass,
+    useMetricUnits,
+    uv,
 } = storeToRefs(weatherStore);
+
+const isCurrentLoaded = computed(() => {
+    return current.value !== null;
+  });
+const currentDescription = computed(() => {
+    return current.value?.weather[0].description;
+  });
+  const currentHumidity = computed(() => {
+    return `${current.value?.main.humidity}%`;
+  });
+  const currentIconUrl = computed(() => {
+    const iconCode = current.value?.weather[0].icon || '#';
+    return `http://openweathermap.org/img/w/${iconCode}.png`;
+  });
+  const currentWindSpeed = computed(() => {
+    const units = useMetricUnits.value ? 'km/h' : 'mph';
+    return `${Math.round(current.value?.wind.speed)} ${units}`;
+  });
+  const temperatureCurrent = computed(() => {
+    return Math.round(current.value?.main.temp) || null;
+  });
+  const temperatureMax = computed(() => {
+    return Math.round(current.value?.main.temp_max) || null;
+  });
+  const temperatureMin = computed(() => {
+    return Math.round(current.value?.main.temp_min) || null;
+  });
+  const UVIndex = computed(() => {
+    return uv.value?.value || null;
+  });
+  const UVColorClass = computed(() => ({
+    'bg-green-400 text-white': UVIndex.value < 4,
+    'bg-yellow-400': UVIndex.value >= 4 && UVIndex.value <= 8,
+    'bg-red-400 text-white': UVIndex.value > 8,
+  }));
 </script>
 
 <template>
