@@ -1,13 +1,22 @@
 <script setup>
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia'
 import { useWeatherStore } from '../stores/weather'
 
 // State
 const weatherStore = useWeatherStore();
 const {
-    forecastNoonData,
+    forecast,
     temperatureUnitSymbol,
 } = storeToRefs(weatherStore);
+
+// Computed
+const forecastNoonData = computed(() => {
+    const indecies = [2, 10, 18, 26, 34];
+    return forecast.value?.list.filter((item, index) =>
+        indecies.includes(index)
+    );
+});
 
 // Methods
 const formatDate = (str) => {

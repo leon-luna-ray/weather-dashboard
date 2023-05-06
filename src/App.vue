@@ -1,6 +1,5 @@
 <script setup>
 import { onBeforeMount } from 'vue';
-import { storeToRefs } from 'pinia';
 import { useWeatherStore } from './stores/weather'
 import { useSearchStore } from './stores/search'
 import CurrentPanel from './components/CurrentPanel.vue';
