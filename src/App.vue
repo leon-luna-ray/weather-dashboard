@@ -1,6 +1,5 @@
 <script setup>
 import { onBeforeMount } from 'vue';
-import { storeToRefs } from 'pinia'
 import { useWeatherStore } from './stores/weather'
 import { useSearchStore } from './stores/search'
 import CurrentPanel from './components/CurrentPanel.vue';
@@ -10,16 +9,16 @@ import Sidebar from './components/Sidebar.vue';
 // State
 const weatherStore = useWeatherStore();
 const searchStore = useSearchStore();
-const { currentCity } = storeToRefs(searchStore);
 
 // Lifecycle
 onBeforeMount(() => {
-  if (!window.localStorage.getItem('wd-rldev-prev')) {
-    weatherStore.fetchData('portland');
+  if (localStorage.getItem('wd-rldev-prev')) {
+    const prevCity = JSON.parse(localStorage.getItem('wd-rldev-prev'))[0];
+    weatherStore.fetchData(prevCity);
+    searchStore.setCities(JSON.parse(localStorage.getItem('wd-rldev-prev')));
   }
   else {
-    const prevCity = localStorage.getItem('wd-rldev-prev');
-    weatherStore.fetchData(prevCity);
+    weatherStore.fetchData('portland');
   }
 })
 </script>
