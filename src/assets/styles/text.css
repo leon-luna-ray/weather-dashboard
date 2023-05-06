@@ -29,4 +29,7 @@
     .text-80 {
         @apply text-[5rem];
     }
+    .text-160 {
+        @apply text-[10rem];
+    }
 }
