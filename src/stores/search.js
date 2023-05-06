@@ -17,10 +17,11 @@ export const useSearchStore = defineStore('search', () => {
   const updateLocalStorage = (cities) => {
     localStorage.setItem('wd-rldev-prev', JSON.stringify(cities));
   };
-
   const setCities = (arr) => {
-    cities.value = arr.reverse();
+    const uniqueArray = [...new Set(arr)].reverse();
+    cities.value = uniqueArray.slice(0, 10);
   };
+
   // Watchers
   watch(cityName, () => {
     const city = cityName.value.toLowerCase();
