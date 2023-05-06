@@ -5,7 +5,7 @@ import { useSearchStore } from '../stores/search';
 const searchQuery = ref('');
 const searchStore = useSearchStore();
 
-function handleSubmit() {
+const handleSubmit = () => {
     searchStore.debounceSearch(searchQuery.value);
     searchQuery.value = '';
 }
@@ -19,4 +19,3 @@ function handleSubmit() {
         </form>
     </div>
 </template>
-
