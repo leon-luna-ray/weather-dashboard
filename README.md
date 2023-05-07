@@ -16,3 +16,6 @@ This is a frontend application build with Vue.js.
 - HTML5
 - CSS3
 - TailwindCSS
+
+## Image
+![Screenshot](./public/img/cloud9-app.png)
