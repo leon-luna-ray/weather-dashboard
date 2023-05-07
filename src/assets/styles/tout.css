@@ -1,0 +1,26 @@
+@layer components {
+    .current .current-temp {
+        @apply text-160 leading-none font-[200];
+    }
+    .current .current-city {
+        @apply flex;
+    }
+    .current .current-city .city-name {
+        @apply font-[300] leading-none;
+    }
+    .current .current-desc {
+        @apply uppercase font-[100] tracking-widest;
+    }
+    .current .conditions {
+        @apply pt-[1rem] mt-[1rem] grid grid-cols-4 border-t;
+    }
+    .current .conditions .grid-item {
+        @apply flex flex-col justify-center;
+    }
+    .current .conditions .grid-item .label {
+        @apply uppercase font-[100];
+    }
+    .current .conditions .grid-item .value {
+        @apply font-[100] text-32;
+    }
+}

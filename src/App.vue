@@ -1,5 +1,8 @@
 <script setup>
 import { onBeforeMount } from 'vue';
+// import { useGeolocation } from '@vueuse/core'
+
+
 import { useWeatherStore } from './stores/weather'
 import { useSearchStore } from './stores/search'
 import CurrentPanel from './components/CurrentPanel.vue';
@@ -7,6 +10,7 @@ import ForecastPanel from './components/ForecastPanel.vue';
 import Sidebar from './components/Sidebar.vue';
 
 // State
+// const { coords, locatedAt, error, resume, pause } = useGeolocation();
 const weatherStore = useWeatherStore();
 const searchStore = useSearchStore();
 

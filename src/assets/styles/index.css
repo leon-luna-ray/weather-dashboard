@@ -2,6 +2,7 @@
 @import './layouts.css';
 @import './nav.css';
 @import './text.css';
+@import './tout.css';
 @import './utilities.css';
 
 @tailwind base;
