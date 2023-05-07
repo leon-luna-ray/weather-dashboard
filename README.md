@@ -1,10 +1,10 @@
 # Weather Dashboard
 
-Weather dashboard for searching weather data and forcast by city. Weather data provided by Open Weahter API.
+Weather dashboard for searching weather data and forecast by city. Weather data is provided by Open Weather API.
 
-The applicaitn allows the user to serach for weather by city name. The application will save the user's recent seraches and load the previous search when the user returns to the app.
+The application allows the user to search for the weather by city name. The application will save the user's recent searches and load the previous search when the user returns to the app.
 
-This is a frontend application build with Vue.js.
+This is a front-end application built with Vue.js.
 
 [https://weather-dashboard-rldev.netlify.app/](https://weather-dashboard-rldev.netlify.app/)
 
