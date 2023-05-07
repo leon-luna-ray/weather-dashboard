@@ -5,7 +5,7 @@ import SearchHistory from './SearchHistory.vue';
 
 <template>
     <div id="sidebar">
-        <h1 class="title">Weather Dashboard</h1>
+        <h1 id="site-title">Cloud9</h1>
         <Search/>
         <SearchHistory />
     </div>

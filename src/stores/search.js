@@ -26,7 +26,7 @@ export const useSearchStore = defineStore('search', () => {
         idSet.add(city.id);
       }
     }
-    searchHistory.value = uniqueCities.slice(0, 10);
+    searchHistory.value = uniqueCities.slice(0, 20);
   };
 
   // Watchers

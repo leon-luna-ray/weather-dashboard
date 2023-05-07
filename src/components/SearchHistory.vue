@@ -10,11 +10,10 @@ const { searchHistory } = storeToRefs(searchStore);
 </script>
 
 <template>
-    <div v-if="searchHistory.length > 1" class="pt-4">
-        <p>Serach History</p>
-        <ul class="search-list pt-3">
+    <div v-if="searchHistory.length > 1" class="search-history">
+        <ul class="search-list">
             <li v-for="item in searchHistory.slice(1)" @click.prevent="weatherStore.fetchData(item.name, item.id)"
-                class="hover:cursor-pointer hover:underline">
+                class="list-item">
                 {{ item.name }}
             </li>
         </ul>

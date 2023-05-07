@@ -14,8 +14,12 @@ const handleSubmit = () => {
 <template>
     <div id="sidebar">
         <form class="search" @submit.prevent="handleSubmit">
-            <input type="text" v-model="searchQuery" />
-            <button>Search</button>
+            <div class="search-input">
+                <input type="text" v-model="searchQuery">
+                <button type="submit" class="search-button">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
         </form>
     </div>
 </template>

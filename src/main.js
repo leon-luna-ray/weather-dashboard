@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
+import '@fortawesome/fontawesome-free/css/all.css'
 import "./assets/styles/index.css";
 import App from "./App.vue";
 
