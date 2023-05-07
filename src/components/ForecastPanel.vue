@@ -21,9 +21,15 @@ const forecastNoonData = computed(() => {
 // Methods
 const formatDate = (str) => {
     const date = new Date(str);
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = date.toLocaleDateString('en-US', options);
-    return formattedDate;
+    const dayOptions = { weekday: 'short' };
+    const dateOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDay = date.toLocaleDateString('en-US', dayOptions);
+    const formattedDate = date.toLocaleDateString('en-US', dateOptions);
+
+    return {
+        day: formattedDay,
+        date: formattedDate,
+    };
 }
 const formatIconUrl = (iconCode) => {
     return `http://openweathermap.org/img/w/${iconCode}.png`;
@@ -31,19 +37,24 @@ const formatIconUrl = (iconCode) => {
 </script>
 
 <template>
-    <div v-if="forecastNoonData" class="forecast py-5">
-        <h3>Forecast</h3>
-        <div class="cards flex gap-5">
+    <div v-if="forecastNoonData" class="forecast">
+        <h3 class="title">Forecast</h3>
+        <ul class="list">
             <div v-for="item in forecastNoonData" class="card forecast-day">
-                <div class="date">{{ formatDate(item.dt_txt) }}</div>
-                <div class="img-wrap">
+
+                <div class="day">
+                    <div class="title">{{ formatDate(item.dt_txt).day }}</div>
+                    <div class="temp">{{ Math.round(item.main.temp) }}{{ temperatureUnitSymbol }}</div>
                     <img :src="formatIconUrl(item.weather[0].icon)" />
                 </div>
-                <ul>
-                    <li>Temp {{ Math.round(item.main.temp) }}{{ temperatureUnitSymbol }}</li>
-                    <li>Humidity {{ item.main.humidity }}%</li>
-                </ul>
+                <div class="description">{{ item.weather[0].description }}</div>
+                <div class="img-wrap">
+                </div>
+                <!-- <div class="conditions">
+
+                    <div>Humidity {{ item.main.humidity }}%</div>
+                </div> -->
             </div>
-        </div>
+        </ul>
     </div>
 </template>
