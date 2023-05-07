@@ -5,7 +5,10 @@ import SearchHistory from './SearchHistory.vue';
 
 <template>
     <div id="sidebar">
-        <h1 id="site-title">Cloud9</h1>
+        <div id="logo">
+            <i class="fa-solid fa-cloud"></i>
+            <h1 id="site-title">Cloud9</h1>
+        </div>
         <Search/>
         <SearchHistory />
     </div>
