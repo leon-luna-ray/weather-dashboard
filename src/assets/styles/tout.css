@@ -12,7 +12,7 @@
         @apply uppercase font-[100] tracking-widest;
     }
     .current .conditions {
-        @apply pt-[1rem] mt-[1rem] grid grid-cols-4 border-t;
+        @apply pt-[1rem] mt-[1rem] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 border-t;
     }
     .current .conditions .grid-item {
         @apply flex flex-col justify-center;

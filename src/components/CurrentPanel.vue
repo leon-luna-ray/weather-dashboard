@@ -42,10 +42,10 @@ const temperatureMin = computed(() => {
 const UVIndex = computed(() => {
   return uv.value?.value || null;
 });
-const UVColorClass = computed(() => ({
-  'bg-green-400 text-white': UVIndex.value < 4,
-  'bg-yellow-400': UVIndex.value >= 4 && UVIndex.value <= 8,
-  'bg-red-400 text-white': UVIndex.value > 8,
+const UVtextColorClass = computed(() => ({
+  'text-green-400': UVIndex.value < 4,
+  'text-yellow-400': UVIndex.value >= 4 && UVIndex.value <= 8,
+  'text-red-400': UVIndex.value > 8,
 }));
 </script>
 
@@ -59,7 +59,6 @@ const UVColorClass = computed(() => ({
     </div>
     <span class="current-desc">{{ currentDescription }}</span>
     <div class="conditions">
-      <!-- <div v-if="UVIndex" :class="['w-max', UVColorClass]">UV Index: {{ UVIndex }}</div> -->
       <div class="grid-item">
         <div class="label">Min</div>
         <div class="value">{{ temperatureMin }}{{ temperatureUnitSymbol }}</div>
@@ -75,6 +74,10 @@ const UVColorClass = computed(() => ({
       <div class="grid-item">
         <div class="label">Humidity</div>
         <div class="value">{{ currentHumidity }}</div>
+      </div>
+      <div class="grid-item">
+        <div class="label">UV</div>
+        <div :class="['value', UVtextColorClass]">{{ UVIndex }}</div>
       </div>
     </div>
   </div>
