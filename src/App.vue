@@ -1,11 +1,12 @@
 <script setup>
 import { onBeforeMount } from 'vue';
 import { useMotionPreference } from '@/composables/useMotionPreference';
-// import { useGeolocation } from '@vueuse/core'
-
+import { useGeolocation } from '@vueuse/core'
 
 import { useWeatherStore } from './stores/weather'
 import { useSearchStore } from './stores/search'
+
+import Dashboard from '@/components/Dashboard.vue';
 import CurrentPanel from './components/CurrentPanel.vue';
 import ForecastPanel from './components/ForecastPanel.vue';
 import Sidebar from './components/Sidebar.vue';
@@ -13,6 +14,11 @@ import Sidebar from './components/Sidebar.vue';
 // Stores
 const weatherStore = useWeatherStore();
 const searchStore = useSearchStore();
+
+// Geolocation
+const { coords, isSupported, isReady, error } = useGeolocation({
+  enableHighAccuracy: true,
+});
 
 // Composables
 useMotionPreference();
@@ -33,10 +39,6 @@ onBeforeMount(() => {
 
 <template>
   <div id="app-main">
-      <Sidebar />
-      <main>
-        <CurrentPanel />
-        <ForecastPanel />
-      </main>
-    </div>
+    <Dashboard />
+  </div>
 </template>

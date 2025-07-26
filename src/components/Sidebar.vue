@@ -9,7 +9,7 @@ import SearchHistory from './SearchHistory.vue';
             <i class="fa-solid fa-cloud"></i>
             <h1 id="site-title">Cloud9</h1>
         </div>
-        <Search/>
+        <Search />
         <SearchHistory />
     </div>
 </template>

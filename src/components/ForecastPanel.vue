@@ -50,10 +50,6 @@ const formatIconUrl = (iconCode) => {
                 <div class="description">{{ item.weather[0].description }}</div>
                 <div class="img-wrap">
                 </div>
-                <!-- <div class="conditions">
-
-                    <div>Humidity {{ item.main.humidity }}%</div>
-                </div> -->
             </div>
         </ul>
     </div>
