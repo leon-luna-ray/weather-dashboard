@@ -1,5 +1,19 @@
-@layer utilities {
-    .test-border {
-        @apply border-2 border-red-600;
-    }
+@utility border-red {
+  @apply border-2 border-red-600;
+}
+
+@utility border-green {
+  @apply border-2 border-green-600;
+}
+
+@utility border-blue {
+  @apply border-2 border-blue-600;
+}
+
+@utility border-yellow {
+  @apply border-2 border-yellow-600;
+}
+
+@utility container {
+  @apply mx-auto px-10;
 }

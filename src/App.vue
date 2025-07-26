@@ -1,5 +1,6 @@
 <script setup>
 import { onBeforeMount } from 'vue';
+import { useMotionPreference } from '@/composables/useMotionPreference';
 // import { useGeolocation } from '@vueuse/core'
 
 
@@ -9,10 +10,12 @@ import CurrentPanel from './components/CurrentPanel.vue';
 import ForecastPanel from './components/ForecastPanel.vue';
 import Sidebar from './components/Sidebar.vue';
 
-// State
-// const { coords, locatedAt, error, resume, pause } = useGeolocation();
+// Stores
 const weatherStore = useWeatherStore();
 const searchStore = useSearchStore();
+
+// Composables
+useMotionPreference();
 
 // Lifecycle
 onBeforeMount(() => {
@@ -30,10 +33,10 @@ onBeforeMount(() => {
 
 <template>
   <div id="app-main">
-    <Sidebar />
-    <main>
-      <CurrentPanel />
-      <ForecastPanel />
-    </main>
-  </div>
+      <Sidebar />
+      <main>
+        <CurrentPanel />
+        <ForecastPanel />
+      </main>
+    </div>
 </template>

@@ -1,47 +1,162 @@
-@layer components {
-  .current .current-temp {
-    @apply text-160 leading-none font-[200];
+@utility current {
+  & .current-temp {
+    @apply text-160 leading-none font-extralight;
   }
-  .current .current-city {
+  & .current-city {
     @apply flex;
   }
-  .current .current-city .city-name {
-    @apply font-[300] leading-none;
+  & .current-city .city-name {
+    @apply font-light leading-none;
   }
-  .current .current-desc {
-    @apply uppercase font-[100] tracking-widest;
+  & .current-desc {
+    @apply uppercase font-thin tracking-widest;
   }
-  .current .conditions {
-    @apply pt-[1rem] mt-[1rem] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 border-t;
+  & .conditions {
+    @apply pt-4 mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 border-t;
   }
-  .current .conditions .grid-item {
+  & .conditions .grid-item {
     @apply flex flex-col justify-center;
   }
-  .current .conditions .grid-item .label {
-    @apply uppercase font-[100];
+  & .conditions .grid-item .label {
+    @apply uppercase font-thin;
   }
-  .current .conditions .grid-item .value {
-    @apply font-[100] text-32;
+  & .conditions .grid-item .value {
+    @apply font-thin text-32;
   }
-  .forecast {
-    @apply pt-[3rem];
+}
+
+@utility current-temp {
+  .current & {
+    @apply text-160 leading-none font-extralight;
   }
-  .forecast .title {
-    @apply font-[100] uppercase text-24 tracking-widest;
+}
+
+@utility current-city {
+  .current & {
+    @apply flex;
   }
-  .forecast .list {
-    @apply flex flex-col gap-y-[3rem] border-t pt-[1rem] mt-[1rem];
+  .current & .city-name {
+    @apply font-light leading-none;
   }
-  .forecast .list .day {
-    @apply flex gap-x-[1rem];
+}
+
+@utility city-name {
+  .current .current-city & {
+    @apply font-light leading-none;
   }
-  .forecast .list .day .title {
-    @apply font-[100] uppercase text-32;
+}
+
+@utility current-desc {
+  .current & {
+    @apply uppercase font-thin tracking-widest;
   }
-  .forecast .list .day .temp {
-    @apply font-[200] uppercase text-32;
+}
+
+@utility conditions {
+  .current & {
+    @apply pt-4 mt-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 border-t;
   }
-  .forecast .description {
-    @apply uppercase font-[100] tracking-widest;
+  .current & .grid-item {
+    @apply flex flex-col justify-center;
+  }
+  .current & .grid-item .label {
+    @apply uppercase font-thin;
+  }
+  .current & .grid-item .value {
+    @apply font-thin text-32;
+  }
+}
+
+@utility grid-item {
+  .current .conditions & {
+    @apply flex flex-col justify-center;
+  }
+  .current .conditions & .label {
+    @apply uppercase font-thin;
+  }
+  .current .conditions & .value {
+    @apply font-thin text-32;
+  }
+}
+
+@utility label {
+  .current .conditions .grid-item & {
+    @apply uppercase font-thin;
+  }
+}
+
+@utility value {
+  .current .conditions .grid-item & {
+    @apply font-thin text-32;
+  }
+}
+
+@utility forecast {
+  @apply pt-12;
+  & .title {
+    @apply font-thin uppercase text-24 tracking-widest;
+  }
+  & .list {
+    @apply flex flex-col gap-y-12 border-t pt-4 mt-4;
+  }
+  & .list .day {
+    @apply flex gap-x-4;
+  }
+  & .list .day .title {
+    @apply font-thin uppercase text-32;
+  }
+  & .list .day .temp {
+    @apply font-extralight uppercase text-32;
+  }
+  & .description {
+    @apply uppercase font-thin tracking-widest;
+  }
+}
+
+@utility title {
+  .forecast & {
+    @apply font-thin uppercase text-24 tracking-widest;
+  }
+  .forecast .list .day & {
+    @apply font-thin uppercase text-32;
+  }
+}
+
+@utility list {
+  .forecast & {
+    @apply flex flex-col gap-y-12 border-t pt-4 mt-4;
+  }
+  .forecast & .day {
+    @apply flex gap-x-4;
+  }
+  .forecast & .day .title {
+    @apply font-thin uppercase text-32;
+  }
+  .forecast & .day .temp {
+    @apply font-extralight uppercase text-32;
+  }
+}
+
+@utility day {
+  .forecast .list & {
+    @apply flex gap-x-4;
+  }
+  .forecast .list & .title {
+    @apply font-thin uppercase text-32;
+  }
+  .forecast .list & .temp {
+    @apply font-extralight uppercase text-32;
+  }
+}
+
+@utility temp {
+  .forecast .list .day & {
+    @apply font-extralight uppercase text-32;
+  }
+}
+
+@utility description {
+  .forecast & {
+    @apply uppercase font-thin tracking-widest;
   }
 }
