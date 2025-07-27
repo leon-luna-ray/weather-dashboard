@@ -1,8 +1,7 @@
 @import './base.css' layer(base);
-@import './layouts.css' layer(base);
-@import './nav.css';
-@import './text.css';
-@import './tout.css';
+@import './animations.css';
+@import './components.css';
+@import './theme.css';
 @import './utilities.css';
 
 @import 'tailwindcss';

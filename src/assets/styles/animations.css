@@ -6,7 +6,3 @@
     transform: rotate(360deg);
   }
 }
-
-@utility rotate-animation {
-  @apply animate-rotate duration-1000ms linear infinite;
-}

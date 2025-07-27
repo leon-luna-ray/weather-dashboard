@@ -1,20 +1,3 @@
-@layer base {
-      body {
-        /* @apply bg-slate-900 text-white; */
-      }
-      h1, .h1 {
-        @apply text-64 font-bold;
-      }
-      h2, .h2 {
-        @apply text-48 font-semibold;
-      }
-      h3, .h3 {
-        @apply text-32 font-medium;
-      }
-      h4, .h4 {
-        @apply text-24 font-medium;
-      }
-      a {
-        @apply underline;
-      }
+body {
+    @apply text-white;
 }

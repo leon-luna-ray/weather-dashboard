@@ -8,9 +8,9 @@ const weather = useWeatherStore();
 </script>
 
 <template>
-    <main class="bg-purple-500 text-white">
+    <main class="">
         <div class="container">
-            <h1>Cloud 9</h1>
+            <h1>Dashboard</h1>
         </div>
     </main>
 </template>

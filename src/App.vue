@@ -7,10 +7,7 @@ import { useWeatherStore } from './stores/weather'
 import { useSearchStore } from './stores/search'
 
 import Dashboard from '@/components/Dashboard.vue';
-import CurrentPanel from './components/CurrentPanel.vue';
-import ForecastPanel from './components/ForecastPanel.vue';
-import Sidebar from './components/Sidebar.vue';
-
+import Header from '@/components/Header.vue';
 // Stores
 const weatherStore = useWeatherStore();
 const searchStore = useSearchStore();
@@ -38,7 +35,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div id="app-main">
+  <div class="h-dvh">
+    <div class="bg-effect"></div>
+    <Header />
     <Dashboard />
   </div>
 </template>
