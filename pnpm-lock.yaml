@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@fortawesome/fontawesome-free':
-        specifier: ^6.4.0
-        version: 6.7.2
       '@vueuse/core':
         specifier: ^10.1.2
         version: 10.11.1(vue@3.5.18)
@@ -201,10 +198,6 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
-
-  '@fortawesome/fontawesome-free@6.7.2':
-    resolution: {integrity: sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==}
-    engines: {node: '>=6'}
 
   '@isaacs/fs-minipass@4.0.1':
     resolution: {integrity: sha512-wgm9Ehl2jpeqP3zw/7mo3kRHFp5MEDhqAdwy1fTGkHAwnkGOVsgpvQhL8B5n1qlb01jV3n/bI0ZfZp5lWA1k4w==}
@@ -756,8 +749,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.18.20':
     optional: true
-
-  '@fortawesome/fontawesome-free@6.7.2': {}
 
   '@isaacs/fs-minipass@4.0.1':
     dependencies:
