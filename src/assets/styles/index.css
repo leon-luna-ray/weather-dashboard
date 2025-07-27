@@ -1,3 +1,4 @@
+@import './fonts.css';
 @import './base.css' layer(base);
 @import './animations.css';
 @import './components.css';
