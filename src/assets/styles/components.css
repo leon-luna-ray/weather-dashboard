@@ -1,3 +1,3 @@
 .bg-effect {
-    @apply fixed top-1/2 left-1/2 h-[200vh] w-[200vw] bg-[url('../images/bg-texture.webp')] bg-cover bg-center z-[-1] blur-[0px] transform -translate-x-1/2 -translate-y-1/2 motion-safe:animate-rotate;
+    @apply fixed top-1/2 left-1/2 h-[200vh] w-[200vw] bg-[url('../images/bg-texture.webp')] bg-cover bg-center z-[-1] blur-[100px] transform -translate-x-1/2 -translate-y-1/2 motion-safe:animate-rotate;
 }
