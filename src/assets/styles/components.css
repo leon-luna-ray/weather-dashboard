@@ -2,6 +2,10 @@
     @apply fixed top-1/2 left-1/2 h-[200vh] w-[200vw] bg-[url('../images/bg-texture.webp')] bg-cover bg-center z-[-1] blur-[100px] transform -translate-x-1/2 -translate-y-1/2 motion-safe:animate-rotate;
 }
 
+.bg-effect.aqua {
+    @apply hue-rotate-[280deg];
+}
+
 .cloud-icon {
     @apply relative;
 }
@@ -12,7 +16,7 @@
 }
 
 .data-list {
-    @apply grid lg:grid-cols-2 gap-x-[2rem] text-center;
+    @apply grid lg:grid-cols-2 gap-x-[2.4rem] text-center;
 }
 
 .data-list li {
@@ -26,6 +30,7 @@
 .data-list li .title {
     @apply font-[500];
 }
+
 .data-list li .value {
-    @apply text-[1.25rem] font-[300];
+    @apply text-[1.125rem] font-[300] font-lexend;
 }

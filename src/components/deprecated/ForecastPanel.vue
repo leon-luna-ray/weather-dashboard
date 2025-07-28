@@ -1,7 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia'
-import { useWeatherStore } from '../stores/weather'
+import { useWeatherStore } from '../../stores/weather'
 
 // State
 const weatherStore = useWeatherStore();

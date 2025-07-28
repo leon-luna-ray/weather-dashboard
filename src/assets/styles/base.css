@@ -2,7 +2,9 @@ body {
     @apply text-white font-lexend;
 }
 
-
+button {
+    @apply hover:cursor-pointer;
+}
 /* .label-text {
     @apply text-[0.875rem] uppercase tracking-wide;
 } */

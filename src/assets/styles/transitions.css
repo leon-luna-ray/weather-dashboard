@@ -1,0 +1,14 @@
+body:not(.reduce-motion) .fade-1000-enter-active,
+body:not(.reduce-motion) .fade-1000-leave-active {
+    @apply transition-opacity duration-1000 ease-in-out;
+}
+
+body:not(.reduce-motion) .fade-1000-enter,
+body:not(.reduce-motion) .fade-1000-leave-to {
+    @apply opacity-0;
+}
+
+
+@utility transition-opacity-1000 {
+    @apply motion-safe:transition-opacity motion-safe:duration-1000 ease-in-out;
+}
