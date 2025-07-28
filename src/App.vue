@@ -37,9 +37,6 @@ const ui = useUiStore();
 // Composables
 useMotionPreference();
 
-// Watch
-
-
 // Lifecycle
 onBeforeMount(() => {
   if (localStorage.getItem('wd-rldev-prev')) {
