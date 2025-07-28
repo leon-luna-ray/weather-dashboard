@@ -1,3 +1,24 @@
 body {
     @apply text-white font-lexend;
 }
+
+
+/* .label-text {
+    @apply text-[0.875rem] uppercase tracking-wide;
+} */
+
+.display-super {
+    @apply text-[8rem] font-bold font-garamond leading-[110%];
+}
+
+.display-1 {
+    @apply text-[4rem] font-bold font-garamond leading-[130%];
+}
+
+.display-2 {
+    @apply text-[3rem] font-bold font-garamond leading-[130%];
+}
+
+.display-3 {
+    @apply text-[2rem] font-bold font-garamond leading-[130%];
+}

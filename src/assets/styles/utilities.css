@@ -18,3 +18,10 @@
   @apply mx-auto px-10;
 }
 
+@utility widget {
+  @apply rounded-lg border-black border-[2px] bg-white/60 text-black;
+}
+
+@utility label-text {
+  @apply text-[0.875rem] uppercase tracking-wide;
+}
