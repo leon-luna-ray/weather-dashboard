@@ -1,9 +1,11 @@
 import { ref, watch } from 'vue';
 import { defineStore, storeToRefs } from 'pinia';
+import { useUiStore } from '@/stores/ui';
 import { useWeatherStore } from './weather';
 import _ from 'lodash';
 
 export const useSearchStore = defineStore('search', () => {
+  const ui = useUiStore();
   // State
   const weatherStore = useWeatherStore();
   const { currentCityName, currentCityId } = storeToRefs(weatherStore);
@@ -35,6 +37,9 @@ export const useSearchStore = defineStore('search', () => {
       id: currentCityId.value,
       name: currentCityName.value,
     };
+    if (ui.isMenuOpen) {
+      ui.isMenuOpen = false;
+    }
     if (searchHistory.value.length) {
       setSearchHistory([city, ...searchHistory.value]);
     } else {

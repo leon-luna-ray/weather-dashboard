@@ -7,25 +7,56 @@ const baseApiUrl = `https://api.openweathermap.org`;
 
 export const useWeatherStore = defineStore('weather', () => {
   // State
-  const useMetricUnits = ref(false);
+  const isMetric = ref(false);
   const current = ref(null);
   const forecast = ref(null);
   const uv = ref(null);
 
   // Computed
+
+  const temperatureUnits = computed(() => {
+    return isMetric.value ? 'metric' : 'imperial';
+  });
+  const temperatureUnitSymbol = computed(() => {
+    return isMetric.value ? '°C' : '°F';
+  });
   const currentCityName = computed(() => {
     return current.value?.name || null;
   });
   const currentCityId = computed(() => {
     return current.value?.id || null;
   });
-  const temperatureUnits = computed(() => {
-    return useMetricUnits.value ? 'metric' : 'imperial';
+  const currentDescription = computed(() => {
+    return current.value?.weather[0].description;
   });
-  const temperatureUnitSymbol = computed(() => {
-    return useMetricUnits.value ? '°C' : '°F';
+  const currentHumidity = computed(() => {
+    return `${current.value?.main.humidity}%`;
   });
-
+  const currentIconUrl = computed(() => {
+    const iconCode = current.value?.weather[0].icon || '#';
+    return `http://openweathermap.org/img/w/${iconCode}.png`;
+  });
+  const currentWindSpeed = computed(() => {
+    const units = isMetric.value ? 'km/h' : 'mph';
+    return `${Math.round(current.value?.wind.speed)} ${units}`;
+  });
+  const currentTemperature = computed(() => {
+    return Math.round(current.value?.main.temp) || null;
+  });
+  const currentMaxTemperature = computed(() => {
+    return Math.round(current.value?.main.temp_max) || null;
+  });
+  const currentMinTemperature = computed(() => {
+    return Math.round(current.value?.main.temp_min) || null;
+  });
+  const currentUvIndex = computed(() => {
+    return uv.value?.value || null;
+  });
+  const uvColorClass = computed(() => ({
+    'bg-green-400': currentUvIndex.value < 4,
+    'bg-yellow-400': currentUvIndex.value >= 4 && currentUvIndex.value <= 8,
+    'bg-red-400': currentUvIndex.value > 8,
+  }));
   // API Calls
   const fetchData = async (city, id) => {
     const weatherQueryStr = id
@@ -34,6 +65,7 @@ export const useWeatherStore = defineStore('weather', () => {
     try {
       const response = await axios.get(weatherQueryStr);
       current.value = response.data;
+      console.log('Current Weather Data:', current.value);
       if (current.value.coord) {
         fetchUvData(current.value.coord);
       }
@@ -64,10 +96,20 @@ export const useWeatherStore = defineStore('weather', () => {
     current,
     currentCityName,
     currentCityId,
+    currentDescription,
+    currentHumidity,
+    currentIconUrl,
+    currentWindSpeed,
+    currentTemperature,
+    currentMaxTemperature,
+    currentMinTemperature,
+    currentUvIndex,
+    uvColorClass,
     forecast,
+    temperatureUnits,
     temperatureUnitSymbol,
     uv,
-    useMetricUnits,
+    isMetric,
     fetchData,
   };
 });

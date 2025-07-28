@@ -1,20 +1,26 @@
-@layer base {
-      body {
-        /* @apply bg-slate-900 text-white; */
-      }
-      h1, .h1 {
-        @apply text-64 font-[700];
-      }
-      h2, .h2 {
-        @apply text-48 font-[600];
-      }
-      h3, .h3 {
-        @apply text-32 font-[500];
-      }
-      h4, .h4 {
-        @apply text-24 font-[500];
-      }
-      a {
-        @apply underline;
-      }
+body {
+    @apply text-white font-lexend;
+}
+
+button {
+    @apply hover:cursor-pointer;
+}
+/* .label-text {
+    @apply text-[0.875rem] uppercase tracking-wide;
+} */
+
+.display-super {
+    @apply text-[8rem] font-bold font-garamond leading-[110%];
+}
+
+.display-1 {
+    @apply text-[4rem] font-bold font-garamond leading-[130%];
+}
+
+.display-2 {
+    @apply text-[3rem] font-bold font-garamond leading-[130%];
+}
+
+.display-3 {
+    @apply text-[2rem] font-bold font-garamond leading-[130%];
 }
