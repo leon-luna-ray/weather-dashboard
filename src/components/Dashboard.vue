@@ -11,7 +11,6 @@
                         <p class="label-text text-[1rem]">{{ weather.currentDescription }}</p>
                         <img :src="weather.currentIconUrl" alt="Current weather icon" />
                     </div>
-                    <p class="text-[2.5rem] font-bold display-2">{{ weather.isMetric }}</p>
                     <p class="display-super py-[0.5rem]">{{ weather.currentTemperature }}<span class="text-[4rem]">{{
                         weather.temperatureUnitSymbol }}</span>
                     </p>

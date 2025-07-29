@@ -1,13 +1,17 @@
+import axios from 'axios';
 import { computed, ref, watch } from 'vue';
 import { defineStore } from 'pinia';
-import axios from 'axios';
+import { useStorage } from '@vueuse/core'
 
 const apiKey = import.meta.env.VITE_APP_API_KEY;
 const baseApiUrl = `https://api.openweathermap.org`;
 
 export const useWeatherStore = defineStore('weather', () => {
   // State
-  const isMetric = ref(false);
+  const units = useStorage('wd-rldev-temp-unit', 'metric');
+  const isMetric = ref(units === 'metric');
+
+  // const isMetric = ref(false);
   const userGeoCoords = ref({ lat: null, lon: null });
   const current = ref(null);
   const forecast = ref(null);
@@ -18,10 +22,10 @@ export const useWeatherStore = defineStore('weather', () => {
     return userGeoCoords.value.lat !== null && userGeoCoords.value.lon !== null;
   });
   const temperatureUnits = computed(() => {
-    return isMetric.value ? 'metric' : 'imperial';
+    return units.value === 'metric' ? 'metric' : 'imperial';
   });
   const temperatureUnitSymbol = computed(() => {
-    return isMetric.value ? '°C' : '°F';
+    return units.value === 'metric' ? '°C' : '°F';
   });
   const currentCityName = computed(() => {
     return current.value?.name || null;
@@ -119,32 +123,35 @@ export const useWeatherStore = defineStore('weather', () => {
   };
 
   watch(isMetric, (newValue) => {
-    if(!newValue) return;
+    if (!newValue) return;
     fetchData(currentCityName.value, currentCityId.value);
+    localStorage.setItem('wd-rldev-temp-unit', newValue ? 'metric' : 'imperial');
   });
 
-  return {
-    current,
-    isCurrentLocation,
-    userGeoCoords,
-    currentCityName,
-    currentCityId,
-    currentDescription,
-    currentHumidity,
-    currentIconUrl,
-    currentWindSpeed,
-    currentTemperature,
-    currentMaxTemperature,
-    currentMinTemperature,
-    currentUvIndex,
-    uvColorClass,
-    forecast,
-    temperatureUnits,
-    temperatureUnitSymbol,
-    uv,
-    isMetric,
-    bgColorClass,
-    fetchData,
-    fetchDataByCoords,
-  };
-});
+
+
+    return {
+      current,
+      isCurrentLocation,
+      userGeoCoords,
+      currentCityName,
+      currentCityId,
+      currentDescription,
+      currentHumidity,
+      currentIconUrl,
+      currentWindSpeed,
+      currentTemperature,
+      currentMaxTemperature,
+      currentMinTemperature,
+      currentUvIndex,
+      uvColorClass,
+      forecast,
+      temperatureUnits,
+      temperatureUnitSymbol,
+      uv,
+      isMetric,
+      bgColorClass,
+      fetchData,
+      fetchDataByCoords,
+    };
+  });
