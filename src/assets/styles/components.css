@@ -6,6 +6,22 @@
     @apply hue-rotate-[280deg];
 }
 
+.bg-effect.red {
+    @apply hue-rotate-[90deg];
+}
+
+.bg-effect.blue {
+    @apply hue-rotate-[310deg];
+}
+
+.bg-effect.green {
+    @apply hue-rotate-[220deg];
+}
+
+.bg-effect.yellow {
+    @apply hue-rotate-[145deg];
+}
+
 .cloud-icon {
     @apply relative;
 }

@@ -6,7 +6,7 @@
       <Dashboard v-else />
     </div>
     <Footer />
-    <div class="bg-effect"></div>
+    <div :class="['bg-effect', weather.bgColorClass]"></div>
   </div>
 </template>
 
@@ -29,10 +29,7 @@ const weather = useWeatherStore();
 const search = useSearchStore();
 const ui = useUiStore();
 
-// Geolocation
-// const { coords, isSupported, isReady, error } = useGeolocation({
-//   enableHighAccuracy: true,
-// });
+
 
 // Composables
 useMotionPreference();

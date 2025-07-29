@@ -15,7 +15,7 @@
 }
 
 @utility container {
-  @apply mx-auto px-10 lg:px-20 max-w-[1080px] w-full;
+  @apply mx-auto px-[1.25rem] lg:px-[2.5rem] max-w-[1080px] w-full;
 }
 
 @utility widget {
