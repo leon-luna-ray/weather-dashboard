@@ -5,8 +5,8 @@
 </template>
 <script setup>
 // Geolocation
-import { useGeolocation } from '@vueuse/core'
-import { useWeatherStore } from '../stores/weather';
+import { useGeolocation } from '@vueuse/core';
+import { useWeatherStore } from '@/stores/weather';
 import { useUiStore } from '@/stores/ui';
 
 const ui = useUiStore();
@@ -22,9 +22,10 @@ const getCurrentLocation = () => {
         return;
     }
 
-    weather.fetchDataByCoords(coords.value.latitude, coords.value.longitude);
+    weather.userGeoCoords = { lat: coords.value.latitude, lon: coords.value.longitude };
+    weather.fetchDataByCoords(weather.userGeoCoords.lat, weather.userGeoCoords.lon);
     pause();
-    
+
     ui.isMenuOpen = false;
 };
 </script>

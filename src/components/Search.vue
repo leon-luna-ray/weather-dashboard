@@ -19,6 +19,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useSearchStore } from '@/stores/search';
+import { useWeatherStore } from '@/stores/weather';
 
 import IconSearch from '@/components/icons/IconSearch.vue';
 import IconLocation from '@/components/icons/IconLocation.vue';
@@ -26,8 +27,10 @@ import LocationBtn from '@/components/LocationBtn.vue';
 
 const searchQuery = ref('');
 const searchStore = useSearchStore();
+const weatherStore = useWeatherStore();
 
 const handleSubmit = () => {
+    weatherStore.userGeoCoords = null; // Clear previous geolocation
     searchStore.debounceSearch(searchQuery.value);
     searchQuery.value = '';
 }

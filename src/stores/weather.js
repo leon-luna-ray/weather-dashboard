@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
@@ -8,12 +8,15 @@ const baseApiUrl = `https://api.openweathermap.org`;
 export const useWeatherStore = defineStore('weather', () => {
   // State
   const isMetric = ref(false);
+  const userGeoCoords = ref({ lat: null, lon: null });
   const current = ref(null);
   const forecast = ref(null);
   const uv = ref(null);
 
   // Computed
-
+  const isCurrentLocation = computed(() => {
+    return userGeoCoords.value.lat !== null && userGeoCoords.value.lon !== null;
+  });
   const temperatureUnits = computed(() => {
     return isMetric.value ? 'metric' : 'imperial';
   });
@@ -115,8 +118,15 @@ export const useWeatherStore = defineStore('weather', () => {
     }
   };
 
+  watch(isMetric, (newValue) => {
+    if(!newValue) return;
+    fetchData(currentCityName.value, currentCityId.value);
+  });
+
   return {
     current,
+    isCurrentLocation,
+    userGeoCoords,
     currentCityName,
     currentCityId,
     currentDescription,
