@@ -27,7 +27,7 @@ export const useWeatherStore = defineStore('weather', () => {
     return current.value?.id || null;
   });
   const currentDescription = computed(() => {
-    return current.value?.weather[0].description;
+    return current.value?.weather[0].description || null;
   });
   const currentHumidity = computed(() => {
     return `${current.value?.main.humidity}%`;
@@ -56,6 +56,9 @@ export const useWeatherStore = defineStore('weather', () => {
     'bg-green-400': currentUvIndex.value < 4,
     'bg-yellow-400': currentUvIndex.value >= 4 && currentUvIndex.value <= 8,
     'bg-red-400': currentUvIndex.value > 8,
+  }));
+  const bgColorClass = computed(() => ({
+    'blue': current.value?.weather[0].main?.toLowerCase() === 'clouds',
   }));
   // API Calls
   const fetchData = async (city, id) => {
@@ -91,6 +94,26 @@ export const useWeatherStore = defineStore('weather', () => {
       console.error(error.msg);
     }
   };
+  const fetchDataByCoords = async (lat, lon) => {
+    const weatherQueryStr = `${baseApiUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&units=${temperatureUnits.value}&appid=${apiKey}`;
+    try {
+      const response = await axios.get(weatherQueryStr);
+      current.value = response.data;
+      console.log('Current Weather Data by Coords:', current.value);
+      if (current.value.coord) {
+        fetchUvData(current.value.coord);
+      }
+    } catch (error) {
+      console.error(error.msg);
+    }
+    const forecastQueryStr = `${baseApiUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${temperatureUnits.value}&appid=${apiKey}`;
+    try {
+      const response = await axios.get(forecastQueryStr);
+      forecast.value = response.data;
+    } catch (error) {
+      console.error(error.msg);
+    }
+  };
 
   return {
     current,
@@ -110,6 +133,8 @@ export const useWeatherStore = defineStore('weather', () => {
     temperatureUnitSymbol,
     uv,
     isMetric,
+    bgColorClass,
     fetchData,
+    fetchDataByCoords,
   };
 });

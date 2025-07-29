@@ -5,6 +5,9 @@
                 <input type="text"
                     class="border-white border-[2px] rounded-lg h-[48px] w-full max-w-[540px] text-[2rem] pl-2"
                     v-model="searchQuery">
+                <LocationBtn>
+                    <IconLocation class="h-[24px] w-[24px]" aria-hidden="true" />
+                </LocationBtn>
                 <button type="submit"
                     class="border-white border-[2px] rounded-lg h-[48px] w-[48px] flex items-center justify-center">
                     <IconSearch class="h-[24px] w-[24px]" />
@@ -18,6 +21,8 @@ import { ref } from 'vue';
 import { useSearchStore } from '@/stores/search';
 
 import IconSearch from '@/components/icons/IconSearch.vue';
+import IconLocation from '@/components/icons/IconLocation.vue';
+import LocationBtn from '@/components/LocationBtn.vue';
 
 const searchQuery = ref('');
 const searchStore = useSearchStore();
