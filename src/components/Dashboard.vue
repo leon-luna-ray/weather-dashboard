@@ -1,11 +1,11 @@
 <template>
     <main class="">
         <div class="container">
-            <div class="flex flex-col gap-[0.875rem]">
+            <div class="grid grid-cols-12 gap-[0.875rem]">
 
                 <!-- Current Weather -->
                 <div
-                    class="md:col-span-12 widget w-full p-[2rem] text-center flex flex-col justify-center items-center">
+                    class="col-span-12 widget w-full p-[2rem] text-center flex flex-col justify-center items-center">
                     <h1 class="display-1 ">{{ weather.currentCityName }}</h1>
                     <div class="flex items-center">
                         <p class="label-text text-[1rem]">{{ weather.currentDescription }}</p>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <!-- current weather detail -->
-                <div class="widget md:col-span-6 w-full p-[2rem] flex flex-col gap-[2rem]">
+                <div class="widget col-span-12 w-full p-[2rem] flex flex-col gap-[2rem]">
                     <h2 class="text-[1.75rem] font-bold display-3 text-center">Current Conditions</h2>
                     <ul class="data-list">
                         <li v-if="weather.current?.main?.feels_like">
@@ -67,7 +67,7 @@
                     </ul>
                 </div>
                 <!-- Forecast -->
-                <div class="widget md:col-span-12 w-full p-[2rem] flex flex-col gap-[2rem]">
+                <div class="widget col-span-12 w-full p-[2rem] flex flex-col gap-[2rem]">
                     <h2 class="text-[1.75rem] font-bold display-3 text-center">5-Day Forecast</h2>
                     <ul v-if="weather.forecast?.list" class="grid grid-cols-1 md:grid-cols-5 gap-4">
                         <li v-for="(day, index) in forecastDays" :key="index"
