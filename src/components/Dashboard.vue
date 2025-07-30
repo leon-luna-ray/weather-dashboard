@@ -4,8 +4,7 @@
             <div class="grid grid-cols-12 gap-[0.875rem]">
 
                 <!-- Current Weather -->
-                <div
-                    class="col-span-12 widget w-full p-[2rem] text-center flex flex-col justify-center items-center">
+                <div class="col-span-12 widget w-full p-[2rem] text-center flex flex-col justify-center items-center">
                     <h1 class="display-1 ">{{ weather.currentCityName }}</h1>
                     <div class="flex items-center">
                         <p class="label-text text-[1rem]">{{ weather.currentDescription }}</p>
@@ -75,7 +74,8 @@
                             <h3 class="font-semibold text-lg display-3">{{ formatDate(day.dt) }}</h3>
                             <img :src="`http://openweathermap.org/img/w/${day.weather[0].icon}.png`"
                                 alt="Forecast weather icon" class="my-2" />
-                            <p class="text-xl font-bold display-2">{{ Math.round(day.main.temp) }}{{ weather.temperatureUnitSymbol
+                            <p class="text-xl font-bold display-2">{{ Math.round(day.main.temp) }}{{
+                                weather.temperatureUnitSymbol
                                 }}</p>
                             <p class="label-text">{{ day.weather[0].main }}</p>
                             <div class="flex justify-between w-full mt-2">
@@ -133,6 +133,6 @@ const formatDate = (timestamp) => {
 
 const formatTime = (timestamp) => {
     const date = new Date(timestamp * 1000);
-    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: !weather.isMetric });
 };
 </script>

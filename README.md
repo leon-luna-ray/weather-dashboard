@@ -6,7 +6,7 @@ The application allows the user to search for the weather by city name. The appl
 
 This is a front-end application built with Vue.js.
 
-[https://weather-dashboard-rldev.netlify.app/](https://weather-dashboard-rldev.netlify.app/)
+[https://cloud9-weather.netlify.app/](https://cloud9-weather.netlify.app/)
 
 ## Technologies
 
