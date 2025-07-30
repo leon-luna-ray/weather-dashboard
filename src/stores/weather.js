@@ -80,8 +80,6 @@ export const useWeatherStore = defineStore('weather', () => {
     try {
       const response = await axios.get(queryStr);
       current.value = response.data;
-      console.log(queryStr)
-      console.log('Current Weather Data:', current.value);
       if (current.value.coord) {
         fetchUvData(current.value.coord);
       }
@@ -115,7 +113,6 @@ export const useWeatherStore = defineStore('weather', () => {
     try {
       const response = await axios.get(weatherQueryStr);
       current.value = response.data;
-      console.log('Current Weather Data by Coords:', current.value);
       if (current.value.coord) {
         fetchUvData(current.value.coord);
       }
