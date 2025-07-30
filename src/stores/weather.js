@@ -3,6 +3,8 @@ import { computed, ref, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { useStorage } from '@vueuse/core'
 import { useUserStore } from '@/stores/user';
+import { useUiStore } from '@/stores/ui';
+import { storeToRefs } from 'pinia';
 
 const apiKey = import.meta.env.VITE_APP_API_KEY;
 const baseApiUrl = `https://api.openweathermap.org`;
@@ -10,6 +12,8 @@ const baseApiUrl = `https://api.openweathermap.org`;
 export const useWeatherStore = defineStore('weather', () => {
   // State
   const user = useUserStore();
+  const ui = useUiStore();
+  const {measurementUnits} = storeToRefs(user);
 
   // Refs
   const current = ref(null);
@@ -18,7 +22,7 @@ export const useWeatherStore = defineStore('weather', () => {
 
   // Computed
   const isMetric = computed(() => {
-    return user.measurementUnits === 'metric';
+    return measurementUnits.value === 'metric';
   });
   const temperatureUnitSymbol = computed(() => {
     return isMetric.value ? '°C' : '°F';
@@ -129,13 +133,15 @@ export const useWeatherStore = defineStore('weather', () => {
 
   // Watchers
   watch(isMetric, (newValue) => {
-    if (!newValue) return;
-    fetchData(currentCityName.value, currentCityId.value);
+    // if (!newValue) return;
+    fetchData(currentCityId.value);
+    ui.isMenuOpen = false;
   });
 
   watch(currentCityId, (newValue) => {
     if (!newValue) return;
-    user.addToSearchHistory(currentCityId.value, currentCityName.value);
+    user.addToSearchHistory(currentCityId.value);
+    ui.isMenuOpen = false;
   });
 
 

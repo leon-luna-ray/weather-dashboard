@@ -30,10 +30,10 @@ export const useUserStore = defineStore('user', () => {
         searchHistory.value = [];
     };
 
-    const setMeasurementUnit = (isMetric) => {
-        measurementUnits.value = isMetric ? 'metric' : 'imperial';
+    const toggleMeasurementUnits = () => {
+        measurementUnits.value = measurementUnits.value === 'metric' ? 'imperial' : 'metric';
     };
-    
+
     return {
         userGeoCoords,
         searchHistory,
@@ -41,6 +41,6 @@ export const useUserStore = defineStore('user', () => {
         setUserGeoCoords,
         addToSearchHistory,
         clearSearchHistory,
-        setMeasurementUnit,
+        toggleMeasurementUnits,
     };
 });
