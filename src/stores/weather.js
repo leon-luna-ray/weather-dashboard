@@ -141,8 +141,6 @@ export const useWeatherStore = defineStore('weather', () => {
 
   return {
     current,
-    // isCurrentLocation,
-    // userGeoCoords,
     currentCityName,
     currentCityId,
     currentDescription,
@@ -155,7 +153,6 @@ export const useWeatherStore = defineStore('weather', () => {
     currentUvIndex,
     uvColorClass,
     forecast,
-    // temperatureUnits,
     temperatureUnitSymbol,
     uv,
     isMetric,
