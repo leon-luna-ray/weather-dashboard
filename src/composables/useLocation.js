@@ -1,5 +1,7 @@
-import { useGeolocation } from '@vueuse/core';
 import { nextTick, onBeforeMount, onMounted, watch } from 'vue';
+import { useGeolocation } from '@vueuse/core';
+import { useWeatherStore } from '@/stores/weather';
+import { useSearchStore } from '@/stores/search';
 
 export const useLocation = () => {
     const { coords, locatedAt, error, resume, pause } = useGeolocation({
@@ -10,6 +12,11 @@ export const useLocation = () => {
 
     const getCurrentLocation = async () => {
         resume();
+    };
+    const getUserSavedData = () => {
+        const savedData = localStorage.getItem('wd-rldev-prev');
+        if(!savedData) return null;
+        return JSON.parse(savedData);
     };
 
     watch(coords, async (newCoords) => {

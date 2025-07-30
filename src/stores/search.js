@@ -1,8 +1,8 @@
+import _ from 'lodash';
 import { ref, watch } from 'vue';
 import { defineStore, storeToRefs } from 'pinia';
 import { useUiStore } from '@/stores/ui';
 import { useWeatherStore } from './weather';
-import _ from 'lodash';
 
 export const useSearchStore = defineStore('search', () => {
   const ui = useUiStore();

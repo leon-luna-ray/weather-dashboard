@@ -3,7 +3,7 @@
         <div class="container text-center flex flex-col gap-[2rem]">
             <button  @click="weather.isMetric = !weather.isMetric" class="btn border-[2px] w-max rounded-lg py-1 px-4">{{ weather.isMetric ? 'C' : 'F' }}</button>
             <h1 class="display-2">Search</h1>
-            <LocationBtn>Current Location</LocationBtn>
+            <!-- <LocationBtn>Current Location</LocationBtn> -->
             <Search />
             <SearchHistory />
         </div>

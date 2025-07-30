@@ -2,30 +2,36 @@ import axios from 'axios';
 import { computed, ref, watch } from 'vue';
 import { defineStore } from 'pinia';
 import { useStorage } from '@vueuse/core'
+import { useUserStore } from '@/stores/user';
 
 const apiKey = import.meta.env.VITE_APP_API_KEY;
 const baseApiUrl = `https://api.openweathermap.org`;
 
 export const useWeatherStore = defineStore('weather', () => {
   // State
-  const units = useStorage('wd-rldev-temp-unit', 'metric');
-  const isMetric = ref(units === 'metric');
+  const user = useUserStore();
+  // const units = useStorage('wd-rldev-temp-unit', 'metric');
+  // const isMetric = ref(units === 'metric');
 
   // const isMetric = ref(false);
-  const userGeoCoords = ref({ lat: null, lon: null });
+
+  // const userGeoCoords = ref({ lat: null, lon: null });
   const current = ref(null);
   const forecast = ref(null);
   const uv = ref(null);
 
   // Computed
-  const isCurrentLocation = computed(() => {
-    return userGeoCoords.value.lat !== null && userGeoCoords.value.lon !== null;
+  const isMetric = computed(() => {
+    return user.measurementUnits === 'metric';
   });
-  const temperatureUnits = computed(() => {
-    return units.value === 'metric' ? 'metric' : 'imperial';
-  });
+  // const isCurrentLocation = computed(() => {
+  //   return userGeoCoords.value.lat !== null && userGeoCoords.value.lon !== null;
+  // });
+  // const temperatureUnits = computed(() => {
+  //   return units.value === 'metric' ? 'metric' : 'imperial';
+  // });
   const temperatureUnitSymbol = computed(() => {
-    return units.value === 'metric' ? '°C' : '°F';
+    return isMetric.value ? '°C' : '°F';
   });
   const currentCityName = computed(() => {
     return current.value?.name || null;
@@ -70,8 +76,8 @@ export const useWeatherStore = defineStore('weather', () => {
   // API Calls
   const fetchData = async (city, id) => {
     const weatherQueryStr = id
-      ? `${baseApiUrl}/data/2.5/weather?id=${id}&units=${temperatureUnits.value}&appid=${apiKey}`
-      : `${baseApiUrl}/data/2.5/weather?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
+      ? `${baseApiUrl}/data/2.5/weather?id=${id}&units=${user.measurementUnits}&appid=${apiKey}`
+      : `${baseApiUrl}/data/2.5/weather?q=${city}&units=${user.measurementUnits}&appid=${apiKey}`;
     try {
       const response = await axios.get(weatherQueryStr);
       current.value = response.data;
@@ -83,8 +89,8 @@ export const useWeatherStore = defineStore('weather', () => {
       console.error(error.msg);
     }
     const forecastQueryStr = id
-      ? `${baseApiUrl}/data/2.5/forecast?id=${id}&units=${temperatureUnits.value}&appid=${apiKey}`
-      : `${baseApiUrl}/data/2.5/forecast?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
+      ? `${baseApiUrl}/data/2.5/forecast?id=${id}&units=${user.measurementUnits}&appid=${apiKey}`
+      : `${baseApiUrl}/data/2.5/forecast?q=${city}&units=${user.measurementUnits}&appid=${apiKey}`;
     try {
       const response = await axios.get(forecastQueryStr);
       forecast.value = response.data;
@@ -102,7 +108,7 @@ export const useWeatherStore = defineStore('weather', () => {
     }
   };
   const fetchDataByCoords = async (lat, lon) => {
-    const weatherQueryStr = `${baseApiUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&units=${temperatureUnits.value}&appid=${apiKey}`;
+    const weatherQueryStr = `${baseApiUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&units=${user.measurementUnits}&appid=${apiKey}`;
     try {
       const response = await axios.get(weatherQueryStr);
       current.value = response.data;
@@ -113,7 +119,7 @@ export const useWeatherStore = defineStore('weather', () => {
     } catch (error) {
       console.error(error.msg);
     }
-    const forecastQueryStr = `${baseApiUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${temperatureUnits.value}&appid=${apiKey}`;
+    const forecastQueryStr = `${baseApiUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${user.measurementUnits}&appid=${apiKey}`;
     try {
       const response = await axios.get(forecastQueryStr);
       forecast.value = response.data;
@@ -122,36 +128,40 @@ export const useWeatherStore = defineStore('weather', () => {
     }
   };
 
+  // Watchers
   watch(isMetric, (newValue) => {
     if (!newValue) return;
     fetchData(currentCityName.value, currentCityId.value);
-    localStorage.setItem('wd-rldev-temp-unit', newValue ? 'metric' : 'imperial');
+  });
+
+  watch(currentCityId, (newValue) => {
+    if (!newValue) return;
+    user.addToSearchHistory(currentCityId.value, currentCityName.value);
   });
 
 
-
-    return {
-      current,
-      isCurrentLocation,
-      userGeoCoords,
-      currentCityName,
-      currentCityId,
-      currentDescription,
-      currentHumidity,
-      currentIconUrl,
-      currentWindSpeed,
-      currentTemperature,
-      currentMaxTemperature,
-      currentMinTemperature,
-      currentUvIndex,
-      uvColorClass,
-      forecast,
-      temperatureUnits,
-      temperatureUnitSymbol,
-      uv,
-      isMetric,
-      bgColorClass,
-      fetchData,
-      fetchDataByCoords,
-    };
-  });
+  return {
+    current,
+    // isCurrentLocation,
+    // userGeoCoords,
+    currentCityName,
+    currentCityId,
+    currentDescription,
+    currentHumidity,
+    currentIconUrl,
+    currentWindSpeed,
+    currentTemperature,
+    currentMaxTemperature,
+    currentMinTemperature,
+    currentUvIndex,
+    uvColorClass,
+    forecast,
+    // temperatureUnits,
+    temperatureUnitSymbol,
+    uv,
+    isMetric,
+    bgColorClass,
+    fetchData,
+    fetchDataByCoords,
+  };
+});
