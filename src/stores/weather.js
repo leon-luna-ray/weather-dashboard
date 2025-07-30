@@ -1,21 +1,28 @@
-import { computed, ref } from 'vue';
-import { defineStore } from 'pinia';
 import axios from 'axios';
+import { computed, ref, watch } from 'vue';
+import { defineStore } from 'pinia';
+import { useStorage } from '@vueuse/core'
+import { useUserStore } from '@/stores/user';
+import { useUiStore } from '@/stores/ui';
+import { storeToRefs } from 'pinia';
 
 const apiKey = import.meta.env.VITE_APP_API_KEY;
 const baseApiUrl = `https://api.openweathermap.org`;
 
 export const useWeatherStore = defineStore('weather', () => {
   // State
-  const isMetric = ref(false);
+  const user = useUserStore();
+  const ui = useUiStore();
+  const {measurementUnits} = storeToRefs(user);
+
+  // Refs
   const current = ref(null);
   const forecast = ref(null);
   const uv = ref(null);
 
   // Computed
-
-  const temperatureUnits = computed(() => {
-    return isMetric.value ? 'metric' : 'imperial';
+  const isMetric = computed(() => {
+    return measurementUnits.value === 'metric';
   });
   const temperatureUnitSymbol = computed(() => {
     return isMetric.value ? '°C' : '°F';
@@ -60,14 +67,20 @@ export const useWeatherStore = defineStore('weather', () => {
   const bgColorClass = computed(() => ({
     'blue': current.value?.weather[0].main?.toLowerCase() === 'clouds',
   }));
+
   // API Calls
-  const fetchData = async (city, id) => {
-    const weatherQueryStr = id
-      ? `${baseApiUrl}/data/2.5/weather?id=${id}&units=${temperatureUnits.value}&appid=${apiKey}`
-      : `${baseApiUrl}/data/2.5/weather?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
+  const fetchData = async (id, city) => {
+    let queryStr;
+    if(id) {
+      queryStr = `${baseApiUrl}/data/2.5/weather?id=${id}&units=${user.measurementUnits}&appid=${apiKey}`;
+    }
+    else {
+      queryStr = `${baseApiUrl}/data/2.5/weather?q=${city}&units=${user.measurementUnits}&appid=${apiKey}`;
+    }
     try {
-      const response = await axios.get(weatherQueryStr);
+      const response = await axios.get(queryStr);
       current.value = response.data;
+      console.log(queryStr)
       console.log('Current Weather Data:', current.value);
       if (current.value.coord) {
         fetchUvData(current.value.coord);
@@ -76,8 +89,9 @@ export const useWeatherStore = defineStore('weather', () => {
       console.error(error.msg);
     }
     const forecastQueryStr = id
-      ? `${baseApiUrl}/data/2.5/forecast?id=${id}&units=${temperatureUnits.value}&appid=${apiKey}`
-      : `${baseApiUrl}/data/2.5/forecast?q=${city}&units=${temperatureUnits.value}&appid=${apiKey}`;
+      ? `${baseApiUrl}/data/2.5/forecast?id=${id}&units=${user.measurementUnits}&appid=${apiKey}`
+      : `${baseApiUrl}/data/2.5/forecast?q=${city}&units=${user.measurementUnits}&appid=${apiKey}`;
+
     try {
       const response = await axios.get(forecastQueryStr);
       forecast.value = response.data;
@@ -85,6 +99,7 @@ export const useWeatherStore = defineStore('weather', () => {
       console.error(error.msg);
     }
   };
+
   const fetchUvData = async (coord) => {
     const uvQueryStr = `${baseApiUrl}/data/2.5/uvi?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}`;
     try {
@@ -94,8 +109,9 @@ export const useWeatherStore = defineStore('weather', () => {
       console.error(error.msg);
     }
   };
+  
   const fetchDataByCoords = async (lat, lon) => {
-    const weatherQueryStr = `${baseApiUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&units=${temperatureUnits.value}&appid=${apiKey}`;
+    const weatherQueryStr = `${baseApiUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&units=${user.measurementUnits}&appid=${apiKey}`;
     try {
       const response = await axios.get(weatherQueryStr);
       current.value = response.data;
@@ -106,7 +122,7 @@ export const useWeatherStore = defineStore('weather', () => {
     } catch (error) {
       console.error(error.msg);
     }
-    const forecastQueryStr = `${baseApiUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${temperatureUnits.value}&appid=${apiKey}`;
+    const forecastQueryStr = `${baseApiUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${user.measurementUnits}&appid=${apiKey}`;
     try {
       const response = await axios.get(forecastQueryStr);
       forecast.value = response.data;
@@ -129,7 +145,6 @@ export const useWeatherStore = defineStore('weather', () => {
     currentUvIndex,
     uvColorClass,
     forecast,
-    temperatureUnits,
     temperatureUnitSymbol,
     uv,
     isMetric,

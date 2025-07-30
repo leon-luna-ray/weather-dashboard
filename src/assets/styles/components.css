@@ -32,7 +32,7 @@
 }
 
 .data-list {
-    @apply grid lg:grid-cols-2 gap-x-[2.4rem] text-center;
+    @apply grid md:grid-cols-2 gap-x-[2rem] text-center;
 }
 
 .data-list li {
@@ -44,9 +44,9 @@
 }
 
 .data-list li .title {
-    @apply font-[500];
+    @apply font-[500] line-clamp-1;
 }
 
 .data-list li .value {
-    @apply text-[1.125rem] font-[300] font-lexend;
+    @apply text-[1.125rem] font-[300] font-lexend line-clamp-1;
 }

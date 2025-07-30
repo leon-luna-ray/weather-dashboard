@@ -17,18 +17,24 @@
     </div>
 </template>
 <script setup>
+import _ from 'lodash';
 import { ref } from 'vue';
-import { useSearchStore } from '@/stores/search';
+import { useWeatherStore } from '@/stores/weather';
 
 import IconSearch from '@/components/icons/IconSearch.vue';
 import IconLocation from '@/components/icons/IconLocation.vue';
 import LocationBtn from '@/components/LocationBtn.vue';
 
+const weather = useWeatherStore();
+
 const searchQuery = ref('');
-const searchStore = useSearchStore();
+
+const debounceSearch = _.debounce((query) => {
+    weather.fetchData(null, query);
+}, 200);
 
 const handleSubmit = () => {
-    searchStore.debounceSearch(searchQuery.value);
+    debounceSearch(searchQuery.value);
     searchQuery.value = '';
 }
 </script>

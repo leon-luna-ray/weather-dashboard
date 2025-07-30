@@ -11,13 +11,12 @@
 </template>
 
 <script setup>
-import { onBeforeMount, ref, watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useMotionPreference } from '@/composables/useMotionPreference';
-// import { useGeolocation } from '@vueuse/core'
 
 import { useWeatherStore } from './stores/weather'
-import { useSearchStore } from './stores/search'
 import { useUiStore } from '@/stores/ui';
+import { useUserStore } from '@/stores/user';
 
 import Dashboard from '@/components/Dashboard.vue';
 import Header from '@/components/Header.vue';
@@ -25,25 +24,30 @@ import Footer from '@/components/Footer.vue';
 import Menu from '@/components/Menu.vue';
 
 // Stores
-const weather = useWeatherStore();
-const search = useSearchStore();
 const ui = useUiStore();
-
-
+const user = useUserStore();
+const weather = useWeatherStore();
 
 // Composables
 useMotionPreference();
 
+// Watch
+watch(() => user.measurementUnits, () => {
+  weather.fetchData(weather.currentCityId, weather.currentCityName);
+  ui.isMenuOpen = false;
+});
+
+watch(() => weather.currentCityId, () => {
+  user.addToSearchHistory(weather.currentCityId, weather.currentCityName);
+  ui.isMenuOpen = false;
+});
+
 // Lifecycle
-onBeforeMount(() => {
-  if (localStorage.getItem('wd-rldev-prev')) {
-    const prevCity = JSON.parse(localStorage.getItem('wd-rldev-prev'))[0].name;
-    const prevId = JSON.parse(localStorage.getItem('wd-rldev-prev'))[0].id;
-    weather.fetchData(prevCity, prevId);
-    search.setSearchHistory(JSON.parse(localStorage.getItem('wd-rldev-prev')));
-  }
-  else {
-    weather.fetchData('portland');
-  }
+onMounted(() => {
+  if (!user.searchHistory.length) {
+    weather.fetchData(null, 'London');
+    return;
+  };
+  weather.fetchData(user.searchHistory[0].id, user.searchHistory[0].name);
 })
 </script>
