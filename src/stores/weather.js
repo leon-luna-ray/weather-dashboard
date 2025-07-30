@@ -10,12 +10,8 @@ const baseApiUrl = `https://api.openweathermap.org`;
 export const useWeatherStore = defineStore('weather', () => {
   // State
   const user = useUserStore();
-  // const units = useStorage('wd-rldev-temp-unit', 'metric');
-  // const isMetric = ref(units === 'metric');
 
-  // const isMetric = ref(false);
-
-  // const userGeoCoords = ref({ lat: null, lon: null });
+  // Refs
   const current = ref(null);
   const forecast = ref(null);
   const uv = ref(null);
@@ -24,12 +20,6 @@ export const useWeatherStore = defineStore('weather', () => {
   const isMetric = computed(() => {
     return user.measurementUnits === 'metric';
   });
-  // const isCurrentLocation = computed(() => {
-  //   return userGeoCoords.value.lat !== null && userGeoCoords.value.lon !== null;
-  // });
-  // const temperatureUnits = computed(() => {
-  //   return units.value === 'metric' ? 'metric' : 'imperial';
-  // });
   const temperatureUnitSymbol = computed(() => {
     return isMetric.value ? '°C' : '°F';
   });
@@ -73,14 +63,20 @@ export const useWeatherStore = defineStore('weather', () => {
   const bgColorClass = computed(() => ({
     'blue': current.value?.weather[0].main?.toLowerCase() === 'clouds',
   }));
+
   // API Calls
-  const fetchData = async (city, id) => {
-    const weatherQueryStr = id
-      ? `${baseApiUrl}/data/2.5/weather?id=${id}&units=${user.measurementUnits}&appid=${apiKey}`
-      : `${baseApiUrl}/data/2.5/weather?q=${city}&units=${user.measurementUnits}&appid=${apiKey}`;
+  const fetchData = async (id, city) => {
+    let queryStr;
+    if(id) {
+      queryStr = `${baseApiUrl}/data/2.5/weather?id=${id}&units=${user.measurementUnits}&appid=${apiKey}`;
+    }
+    else {
+      queryStr = `${baseApiUrl}/data/2.5/weather?q=${city}&units=${user.measurementUnits}&appid=${apiKey}`;
+    }
     try {
-      const response = await axios.get(weatherQueryStr);
+      const response = await axios.get(queryStr);
       current.value = response.data;
+      console.log(queryStr)
       console.log('Current Weather Data:', current.value);
       if (current.value.coord) {
         fetchUvData(current.value.coord);
@@ -91,6 +87,7 @@ export const useWeatherStore = defineStore('weather', () => {
     const forecastQueryStr = id
       ? `${baseApiUrl}/data/2.5/forecast?id=${id}&units=${user.measurementUnits}&appid=${apiKey}`
       : `${baseApiUrl}/data/2.5/forecast?q=${city}&units=${user.measurementUnits}&appid=${apiKey}`;
+
     try {
       const response = await axios.get(forecastQueryStr);
       forecast.value = response.data;
@@ -98,6 +95,7 @@ export const useWeatherStore = defineStore('weather', () => {
       console.error(error.msg);
     }
   };
+
   const fetchUvData = async (coord) => {
     const uvQueryStr = `${baseApiUrl}/data/2.5/uvi?lat=${coord.lat}&lon=${coord.lon}&appid=${apiKey}`;
     try {
@@ -107,6 +105,7 @@ export const useWeatherStore = defineStore('weather', () => {
       console.error(error.msg);
     }
   };
+  
   const fetchDataByCoords = async (lat, lon) => {
     const weatherQueryStr = `${baseApiUrl}/data/2.5/weather?lat=${lat}&lon=${lon}&units=${user.measurementUnits}&appid=${apiKey}`;
     try {

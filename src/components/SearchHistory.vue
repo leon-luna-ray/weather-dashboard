@@ -13,22 +13,17 @@
 </template>
 
 <script setup>
-// import { storeToRefs } from 'pinia';
-import { useWeatherStore } from '@/stores/weather'
-// import { useSearchStore } from '@/stores/search'
+import { useWeatherStore } from '@/stores/weather';
 import { useUiStore } from '@/stores/ui';
 import { useUserStore } from '@/stores/user';
 
 // State
-// const searchStore = useSearchStore();
 const ui = useUiStore();
 const user = useUserStore();
 const weather = useWeatherStore();
 
-// const { searchHistory } = storeToRefs(searchStore);
-
 const handleClick = (item) => {
-    weather.fetchData(item.name, item.id);
+    weather.fetchData(item.id, item.name);
     ui.isMenuOpen = false;
 };
 </script>

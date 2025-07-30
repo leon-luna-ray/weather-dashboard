@@ -33,21 +33,7 @@ export const useUserStore = defineStore('user', () => {
     const setMeasurementUnit = (isMetric) => {
         measurementUnits.value = isMetric ? 'metric' : 'imperial';
     };
-
-    // const getUserSavedData = () => {
-    //     const localStorageData = localStorage.getItem('wd-rldev-prev');
-    //     if (!localStorageData) return null;
-
-    //     const data = JSON.parse(localStorageData);
-    //     return data;
-    // };
-
-    // Watchers
-    // watch(coords, (newCoords) => {
-    //     if (!newCoords) return;
-    //     setUserGeoCoords(newCoords.latitude, newCoords.longitude);
-    // });
-
+    
     return {
         userGeoCoords,
         searchHistory,

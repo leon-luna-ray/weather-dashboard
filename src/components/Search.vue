@@ -19,24 +19,21 @@
 <script setup>
 import _ from 'lodash';
 import { ref } from 'vue';
-// import { useSearchStore } from '@/stores/search';
 import { useWeatherStore } from '@/stores/weather';
 
 import IconSearch from '@/components/icons/IconSearch.vue';
 import IconLocation from '@/components/icons/IconLocation.vue';
 import LocationBtn from '@/components/LocationBtn.vue';
 
-// const searchStore = useSearchStore();
 const weather = useWeatherStore();
 
 const searchQuery = ref('');
 
 const debounceSearch = _.debounce((query) => {
-    weather.fetchData(query);
+    weather.fetchData(null, query);
 }, 200);
 
 const handleSubmit = () => {
-    // weatherStore.userGeoCoords = null; // Clear previous geolocation
     debounceSearch(searchQuery.value);
     searchQuery.value = '';
 }
