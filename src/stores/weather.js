@@ -131,20 +131,6 @@ export const useWeatherStore = defineStore('weather', () => {
     }
   };
 
-  // Watchers
-  watch(isMetric, (newValue) => {
-    // if (!newValue) return;
-    fetchData(currentCityId.value, currentCityName.value);
-    ui.isMenuOpen = false;
-  });
-
-  watch(currentCityId, (newValue) => {
-    if (!newValue) return;
-    user.addToSearchHistory(currentCityId.value, currentCityName.value);
-    ui.isMenuOpen = false;
-  });
-
-
   return {
     current,
     currentCityName,
