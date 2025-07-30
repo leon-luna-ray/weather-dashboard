@@ -25,12 +25,12 @@ const ui = useUiStore();
 const user = useUserStore();
 const weather = useWeatherStore();
 
-watch(() => user.SearchHistory, (newValue) => {
-    ui.isMenuOpen = false;
-});
-watch(() => user.measurementUnits, () => {
-    ui.isMenuOpen = false;
-});
+// watch(() => user.SearchHistory, (newValue) => {
+//     ui.isMenuOpen = false;
+// });
+// watch(() => user.measurementUnits, () => {
+//     ui.isMenuOpen = false;
+// });
 // watch(()=> weather.current, () => {
 //     ui.isMenuOpen = false;
 // });
